@@ -15,10 +15,12 @@ import {
 
 import clrs from '../utils/clrs';
 
-var GPS = React.createClass({
+
+// GOT IT WORKING  
+const GPS = React.createClass({
 
   watchID: (null: ?number),
-  //
+
     getInitialState: function() {
       return {
         initialPosition: 'unknown',
