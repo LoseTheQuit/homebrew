@@ -71,8 +71,7 @@ export default class theOtherMain extends Component {
 
       <ScrollView style={styles.container}>
 
-      <Rugby title="All Purpose" text='ON'/>
-      <GPS text='GPS'/>
+      <GPS/>
         <TextInput
           style={styles.textInput}
           placeholder="Type here to translate!"

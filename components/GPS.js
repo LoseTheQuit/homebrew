@@ -16,7 +16,7 @@ import {
 import clrs from '../utils/clrs';
 
 
-// GOT IT WORKING  
+// GOT IT WORKING
 const GPS = React.createClass({
 
   watchID: (null: ?number),
@@ -39,6 +39,7 @@ const GPS = React.createClass({
         this.watchID = navigator.geolocation.watchPosition((position) => {
           var lastPosition = JSON.stringify(position);
           this.setState({lastPosition});
+          // alert('TEST')
         });
       },
 
@@ -51,7 +52,7 @@ const GPS = React.createClass({
        <View>
        <Text>
          <Text style={styles.title}>homebrew</Text>
-         <Text> v0.0.007 </Text>
+         <Text> v0.0.007</Text>
        </Text>
             <Text>
               <Text style={styles.title}>Initial position: </Text>
