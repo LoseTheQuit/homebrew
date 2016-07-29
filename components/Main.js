@@ -13,13 +13,14 @@ import {
   Text,
   Image
 } from 'react-native';
-
+var Slider = require('react-native-slider');
 import clrs from '../utils/clrs'
 import GPS from './GPS';
+import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 
 
-export default class theOtherMain extends Component {
+export default class Main extends Component {
 
   constructor(props) {
     super(props);
@@ -46,10 +47,18 @@ export default class theOtherMain extends Component {
     ]
 
     this.state = {
+
       artists: dataSource.cloneWithRows(data),
-      text: ''
+      text: '',
+      longitudeTransfer: 0,
+      latitudeTransfer: 0,
+      // value: 0,
+
     }
 
+  }
+  theYolk = (x) => {
+    this.setState({ longitudeTransfer })
   }
 
   renderRow = (text, sId, rId) => {
@@ -63,6 +72,7 @@ export default class theOtherMain extends Component {
   render() {
 
     const {artists} = this.state;
+
     let pic = {
       uri: 'https://hsto.org/files/230/81c/56d/23081c56d81744a686c0916ba25a2e2b.png'
     }
@@ -70,9 +80,15 @@ export default class theOtherMain extends Component {
     return (
 
       <ScrollView style={styles.container}>
+      <Text>
+        <Text style={styles.title}>homebrew</Text>
+        <Text> v0.0.007</Text>
+      </Text>
+        <Text style={styles.title}>
+          GPS
+        </Text>
 
-      <GPS/>
-        <TextInput
+        {/*<TextInput
           style={styles.textInput}
           placeholder="Type here to translate!"
           onChangeText={(text) => this.setState({ text }) }
@@ -80,46 +96,48 @@ export default class theOtherMain extends Component {
 
         <Text style={styles.textInput}>
           {this.state.text}
+        </Text>*/}
+
+        {/*<Image source={pic} style={{ width: 193, height: 110 }}/>*/}
+
+        <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar>
+
+        <Slider
+
+          onValueChange={value => this.setState({ latitudeTransfer: value }) }
+          // onValueChange={ (value) =>  this.state.okSoRenderThis(value)}
+          minimumTrackTintColor={'#2ea8ff'}
+          maximumrackTintColor={'#005694'}
+          thumbTintColor={'#0083e0'} step={.1}
+          minimumValue={-180} maximumValue={180}
+
+          />
+
+        <Text style={styles.coordinates}>
+          Latitude: {this.state.latitudeTransfer}   
         </Text>
 
-        <Image source={pic} style={{ width: 193, height: 110 }}/>
-        <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'> </StatusBar>
+        <Slider
 
-        <StatusBar barStyle="default"></StatusBar>
-        <TextInput style={styles.searchBox}/>
+          onValueChange={(value) => this.setState({ longitudeTransfer: value }) }
+          // onValueChange={ (value) =>  this.state.okSoRenderThis(value)}
+          minimumTrackTintColor={'#2ea8ff'}
+          maximumrackTintColor={'#005694'}
+          thumbTintColor={'#0083e0'} step={.1}
+          minimumValue={-180} maximumValue={180}
 
-        <ListView dataSource={artists} style={{
+          />
+
+        <Text style={styles.coordinates}>
+          Longitude: {this.state.longitudeTransfer}
+        </Text>
+
+        <GPS long={this.state.longitudeTransfer}  lat={this.state.latitudeTransfer}/>
+
+        {/*<ListView dataSource={artists} style={{
           // flex: 100,
           alignSelf: 'stretch',
-
-        }} renderRow={this.renderRow}/>
-
-            <Navigator
-              initialRoute={{ title: 'My Initial Scene', index: 0 }}
-              renderScene={(route, navigator) =>
-                <Rugby
-
-                  title={route.title}
-
-                  // Function to call when a new scene should be displayed
-                  onForward={ () => {
-                    const nextIndex = route.index + 1;
-                    navigator.push({
-                      title: 'Scene ' + nextIndex,
-                      index: nextIndex,
-                    });
-                  }}
-
-                  // Function to call to go back to the previous scene
-                  onBack={() => {
-                    if (route.index > 0) {
-                      navigator.pop();
-                    }
-                  }}
-                />
-              }
-            />
-
+          }} renderRow={this.renderRow}/>*/}
 
       </ScrollView>
 
@@ -130,9 +148,9 @@ export default class theOtherMain extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  //  justifyContent: 'justifyContent',
-  //  alignItems: 'center',
-    backgroundColor: '#c2c2c2',
+    //  justifyContent: 'justifyContent',
+    //  alignItems: 'center',
+    backgroundColor: '#effffe',
   },
   textColorWhite: {
     color: '#ffffff',
@@ -143,13 +161,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#F5FCFF'
   },
-  textInput: {
+  coordinates: {
     flex: 1,
     width: 1000,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
-    padding: 10,
+    color: '#444',
+    padding: 1,
     fontSize: 27
   },
   welcome: {
@@ -169,5 +187,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
+    marginBottom: 25,
+    fontSize: 25
   },
 });
