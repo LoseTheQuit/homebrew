@@ -80,10 +80,10 @@ export default class Main extends Component {
     return (
 
       <ScrollView style={styles.container}>
-      <Text>
-        <Text style={styles.title}>homebrew</Text>
-        <Text> v0.0.007</Text>
-      </Text>
+        <Text>
+          <Text style={styles.homebrew}>homebrew</Text>
+          <Text> v0.0.007 </Text>
+        </Text>
         <Text style={styles.title}>
           GPS
         </Text>
@@ -114,7 +114,7 @@ export default class Main extends Component {
           />
 
         <Text style={styles.coordinates}>
-          Latitude: {this.state.latitudeTransfer}   
+          Latitude: {this.state.latitudeTransfer}
         </Text>
 
         <Slider
@@ -134,10 +134,10 @@ export default class Main extends Component {
 
         <GPS long={this.state.longitudeTransfer}  lat={this.state.latitudeTransfer}/>
 
-        {/*<ListView dataSource={artists} style={{
-          // flex: 100,
-          alignSelf: 'stretch',
-          }} renderRow={this.renderRow}/>*/}
+        <ListView dataSource={artists} style={{
+           flex: 100,
+          alignSelf: 'stretch'
+        }} renderRow={this.renderRow}/>
 
       </ScrollView>
 
@@ -148,13 +148,10 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //  justifyContent: 'justifyContent',
-    //  alignItems: 'center',
     backgroundColor: '#effffe',
   },
   textColorWhite: {
     color: '#ffffff',
-
   },
   centerThis: {
     justifyContent: 'flex-start',
@@ -190,4 +187,8 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     fontSize: 25
   },
+  homebrew:{
+    fontWeight: '100',
+    marginBottom: 100,
+    fontSize: 37}
 });

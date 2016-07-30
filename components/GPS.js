@@ -20,122 +20,134 @@ const GPS = React.createClass({
 
   watchID: (null: ?number),
 
-  getInitialState: function() {
-    return {
+  statics: {
+    calcCrow: (lat1, lon1, lat2, lon2) => {
 
-      initialPosition: 'unknown',
-      lastPosition: 'unknown',
-      latitude: 'unknown',
-      longitude: 'unknown',
-      totalDistance: 'unknown',
-      okSoRenderThis: function () {
-        alert('THIS IS ON!')
-      }
+      var R = 6371; // km
+var toRad = Math.PI / 180;
+var dLat = (lat2 - lat1) * toRad;
+var dLon = (lon2 - lon1) * toRad;
+var lat1 = (lat1) * toRad;
+var lat2 = (lat2) * toRad;
+var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+  Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+var d = R * c;
+return d;
 
-    };
-
-  },  okSoRenderThis: function () {
-      alert('THIS IS ON!')
-    },
-
-
-  componentDidMount: function() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-
-        var initialPosition = JSON.stringify(position);
-
-        var latitude = JSON.stringify(position.coords.latitude);
-        var longitude = JSON.stringify(position.coords.longitude);
-
-        var totalDistance = calcCrow(latitude, longitude, 59.3225525, 13.4619422).toFixed(1);
-        // var totalDistance = calcCrow(59.3293371, 13.4877472, 59.3225525, 13.4619422).toFixed(1);
-
-        this.setState({ initialPosition });
-        this.setState({ latitude });
-        this.setState({ longitude });
-        this.setState({ totalDistance });
+    }
 
 
-        // This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
-        function calcCrow(lat1, lon1, lat2, lon2) {
+   },
+
+getInitialState: function() {
+
+  return {
+    initialPosition: '1',
+    lastPosition: 'unknown',
+    latitude: 'unknown',
+    longitude: 'unknown',
+    totalDistance: 'unknown',
+     calcCrow: (lat1, lon1, lat2, lon2) => {
+
           var R = 6371; // km
-          var dLat = toRad(lat2 - lat1);
-          var dLon = toRad(lon2 - lon1);
-          var lat1 = toRad(lat1);
-          var lat2 = toRad(lat2);
-
-          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-          var d = R * c;
-          return d;
+    var toRad = Math.PI / 180;
+    var dLat = (lat2 - lat1) * toRad;
+    var dLon = (lon2 - lon1) * toRad;
+    var lat1 = (lat1) * toRad;
+    var lat2 = (lat2) * toRad;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
 
         }
+  };
 
-        // Converts numeric degrees to radians
-        function toRad(Value) {
-          return Value * Math.PI / 180;
-        }
+},
 
-      },
-      (error) => alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-
-      var lastPosition = JSON.stringify(position);
-      this.setState({ lastPosition });
+componentDidMount: function() {
 
 
-    });
-  },
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
 
-  componentWillUnmount: function() {
-    navigator.geolocation.clearWatch(this.watchID);
-  },
+      var initialPosition = JSON.stringify(position);
+      var latitude = JSON.stringify(position.coords.latitude);
+      var longitude = JSON.stringify(position.coords.longitude);
+      var totalDistance = GPS.calcCrow(latitude, longitude, 180.3225525, 180.4619422).toFixed(1);
 
-  render() {
-    return (
-      <View>
+      this.setState({ initialPosition });
+      this.setState({ latitude });
+      this.setState({ longitude });
+      this.setState({ totalDistance });
 
-        <Text>
-          <Text style={styles.title}>Initial position: </Text>
-          <Text>{this.state.initialPosition}</Text>
-        </Text>
+    },
+    (error) => alert(error.message + " LOAD SAMPLE GPS DATA"),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  );
 
-        <Text>
-          <Text style={styles.title}>Current position: </Text>
-          <Text>{this.state.lastPosition}</Text>
-        </Text>
+  this.watchID = navigator.geolocation.watchPosition((position) => {
+    var lastPosition = JSON.stringify(position);
+    this.setState({ lastPosition });
+  });
+},
 
-        <Text>
-          <Text style={styles.title}>Current longitude: </Text>
-          <Text>{this.state.longitude}</Text>
-        </Text>
-        <Text>
-          <Text style={styles.title}>Current latitude: </Text>
-          <Text>{this.state.latitude}</Text>
-        </Text>
+componentWillUnmount: function() {
+  navigator.geolocation.clearWatch(this.watchID);
+},
 
-        <Text>
-          <Text style={styles.title}>totalDistance: </Text>
-          <Text>{this.state.totalDistance}</Text>
-        </Text>
+render() {
 
-        <Text>
-          <Text onChangeText={() => this.okSoRenderThis } style={styles.title}>lat: </Text>
-          <Text>{this.props.lat}{this.okSoRenderThis}</Text>
-        </Text>
+  var display = 'THIS IS A ANOTHER TEST'
+  const {totalDistance} = this.state;
 
-        <Text>
-          <Text style={styles.title}>long: </Text>
-          <Text>{this.props.long}</Text>
-        </Text>
 
-      </View>
-    );
-  }
+  return (
+ 
+
+    <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.props.lat, this.props.long, this.state.latitude, this.state.longitude) } >
+      {/*<View onChangeText={this.setState({ totalDistance: 72727 })}>*/}
+
+      {/* onChangeText={   this.setState({  totalDistance:    this.state.calcCrow(this.props.lat, this.props.long, this.state.latitude, this.state.longitude)}) } */}
+      <Text >
+        <Text style={styles.title}>Initial position: </Text>
+        <Text>{this.state.initialPosition}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.title}>Current position: </Text>
+        <Text>{this.state.lastPosition}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.title}>Current longitude: </Text>
+        <Text>{this.state.longitude}</Text>
+      </Text>
+      <Text>
+        <Text style={styles.title}>Current latitude: </Text>
+        <Text>{this.state.latitude}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.title}>totalDistance: </Text>
+        <Text>{this.state.totalDistance}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.title}>lat: </Text>
+        <Text>{this.props.lat}</Text>
+      </Text>
+
+      <Text >
+        <Text style={styles.title}>long: </Text>
+        <Text>{this.props.long}</Text>
+      </Text>
+
+    </View>
+  );
+}
 });
 
 var styles = StyleSheet.create({
