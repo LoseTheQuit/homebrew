@@ -14,6 +14,7 @@ import {
   Image
 } from 'react-native';
 var Slider = require('react-native-slider');
+var loDash = require('lodash');
 import clrs from '../utils/clrs'
 import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
@@ -57,6 +58,25 @@ export default class Main extends Component {
     }
 
   }
+
+  getMoviesFromApiAsync() {
+    return fetch('https://flonoware.herokuapp.com/outermost', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }.then((response) => response.json())
+        .then((responseJson) => {
+          return responseJson.movies;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+
+    })
+  }
+
+
   theYolk = (x) => {
     this.setState({ longitudeTransfer })
   }
@@ -80,13 +100,10 @@ export default class Main extends Component {
     return (
 
       <ScrollView style={styles.container}>
-        <Text>
-          <Text style={styles.homebrew}>homebrew</Text>
-          <Text> v0.0.007 </Text>
-        </Text>
-        <Text style={styles.title}>
-          GPS
-        </Text>
+
+        <Text style={styles.homebrew}>homebrew</Text>
+        <Text style={styles.title}>GPS</Text>
+        <Text style={styles.version}>v0.0.009</Text>
 
         {/*<TextInput
           style={styles.textInput}
@@ -105,7 +122,6 @@ export default class Main extends Component {
         <Slider
 
           onValueChange={value => this.setState({ latitudeTransfer: value }) }
-          // onValueChange={ (value) =>  this.state.okSoRenderThis(value)}
           minimumTrackTintColor={'#2ea8ff'}
           maximumrackTintColor={'#005694'}
           thumbTintColor={'#0083e0'} step={.1}
@@ -134,10 +150,14 @@ export default class Main extends Component {
 
         <GPS long={this.state.longitudeTransfer}  lat={this.state.latitudeTransfer}/>
 
-        <ListView dataSource={artists} style={{
+        {/* <Text style={styles.coordinates}>
+          This is it!: {this.state.longitudeTransfer}
+        </Text> */}
+
+        {/*<ListView dataSource={artists} style={{
            flex: 100,
           alignSelf: 'stretch'
-        }} renderRow={this.renderRow}/>
+        }} renderRow={this.renderRow}/>*/}
 
       </ScrollView>
 
@@ -184,11 +204,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
-    marginBottom: 25,
     fontSize: 25
   },
-  homebrew:{
+  homebrew: {
     fontWeight: '100',
-    marginBottom: 100,
-    fontSize: 37}
+    fontSize: 45
+  },
+  version: {
+    fontWeight: '100',
+    marginBottom: 50
+  }
 });

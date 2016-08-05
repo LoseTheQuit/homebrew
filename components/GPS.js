@@ -14,61 +14,93 @@ import {
 } from 'react-native';
 
 import clrs from '../utils/clrs';
+import {fetcher} from '../utils/fetcher';
 
 // GOT IT WORKING
 const GPS = React.createClass({
 
   watchID: (null: ?number),
 
-  statics: {
-    calcCrow: (lat1, lon1, lat2, lon2) => {
+  getInitialState: function() {
 
-      var R = 6371; // km
+    return {
+      initialPosition: 'unknown',
+      lastPosition: 'unknown',
+      latitude: 0,
+      longitude: 0,
+      incomingLatitude: '182',
+      incomingLongitude: '182',
+      totalDistance: 'unknown',
+      fromServer: 'TEST = fromServer'
+    };
+
+  },
+
+  /*
+THIS METHOD GATHERS THE TWE INCOMING COORDINATES
+AND THEN THE CURRENT COORDINATES TO CALCULATE AND
+RETURNS THE DISTANCE BETWEEN THE TWO POINTS
+  */
+
+  statics: {
+    calcCrow: (incomingLat1, incomingLon1, currentLat2, currentLon2) => {
+
+        var R = 6371; // km
 var toRad = Math.PI / 180;
-var dLat = (lat2 - lat1) * toRad;
-var dLon = (lon2 - lon1) * toRad;
-var lat1 = (lat1) * toRad;
-var lat2 = (lat2) * toRad;
+var dLat = (currentLat2 - incomingLat1) * toRad;
+var dLon = (currentLon2 - incomingLon1) * toRad;
+var incomingLat1 = (incomingLat1) * toRad;
+var currentLat2 = (currentLat2) * toRad;
 var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-  Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 var d = R * c;
 return d;
 
-    }
+    },
 
-
-   },
-
-getInitialState: function() {
-
-  return {
-    initialPosition: '1',
-    lastPosition: 'unknown',
-    latitude: 'unknown',
-    longitude: 'unknown',
-    totalDistance: 'unknown',
-     calcCrow: (lat1, lon1, lat2, lon2) => {
-
-          var R = 6371; // km
-    var toRad = Math.PI / 180;
-    var dLat = (lat2 - lat1) * toRad;
-    var dLon = (lon2 - lon1) * toRad;
-    var lat1 = (lat1) * toRad;
-    var lat2 = (lat2) * toRad;
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d;
-
-        }
-  };
-
+getLastAdded: () => {
+  let exData;
+  fetch('https://flonoware.herokuapp.com/outermost')
+    .then((response) => response.json().then(function (data) {
+      // console.log(JSON.stringify(data))
+      exData = JSON.stringify(data)
+      alert(exData)
+      return exData.toString()
+    })
+    )
+    // .then((responseJson) => {
+    //   return 'responseJson';
+    // })
+    .catch((error) => {
+      alert(error)
+      console.error(error);
+    });
+    // return exData;
+    return   fetch('https://flonoware.herokuapp.com/outermost')
+        .then((response) => response.json()
+        .then(  (data) => {
+          // console.log(JSON.stringify(data))
+          exData = JSON.stringify(data)
+          //   this.setState({ initialPosition });
+          alert(exData)
+          return exData.toString()
+        })
+        )
+        // .then((responseJson) => {
+        //   return 'responseJson';
+        // })
+        .catch((error) => {
+          alert(error)
+          console.error(error);
+        });;
 },
 
+   },
 componentDidMount: function() {
 
+  // this.setState(){
+  // }
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -76,7 +108,9 @@ componentDidMount: function() {
       var initialPosition = JSON.stringify(position);
       var latitude = JSON.stringify(position.coords.latitude);
       var longitude = JSON.stringify(position.coords.longitude);
-      var totalDistance = GPS.calcCrow(latitude, longitude, 180.3225525, 180.4619422).toFixed(1);
+      var totalDistance = '';
+
+      // var totalDistance = GPS.calcCrow(180.3225525, 180.4619422,latitude, longitude ).toFixed(1);
 
       this.setState({ initialPosition });
       this.setState({ latitude });
@@ -91,6 +125,15 @@ componentDidMount: function() {
   this.watchID = navigator.geolocation.watchPosition((position) => {
     var lastPosition = JSON.stringify(position);
     this.setState({ lastPosition });
+
+    var initialPosition = JSON.stringify(position);
+    var incomingLatitude = JSON.stringify(position.coords.latitude);
+    var incomingLongitude = JSON.stringify(position.coords.longitude);
+
+    this.setState({ initialPosition });
+    this.setState({ incomingLatitude });
+    this.setState({ incomingLongitude });
+
   });
 },
 
@@ -99,35 +142,50 @@ componentWillUnmount: function() {
 },
 
 render() {
-
+  debugger;
   var display = 'THIS IS A ANOTHER TEST'
   const {totalDistance} = this.state;
 
-
   return (
- 
 
-    <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.props.lat, this.props.long, this.state.latitude, this.state.longitude) } >
-      {/*<View onChangeText={this.setState({ totalDistance: 72727 })}>*/}
 
-      {/* onChangeText={   this.setState({  totalDistance:    this.state.calcCrow(this.props.lat, this.props.long, this.state.latitude, this.state.longitude)}) } */}
-      <Text >
-        <Text style={styles.title}>Initial position: </Text>
+    <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.props.lat, this.props.long, this.state.latitude, this.state.longitude) ,  this.state.incomingLatitude = this.props.lat,this.state.incomingLongitude = this.props.long} >
+
+      {/*<Text >
+        <Text style={styles.title}>Incoming position: </Text>
         <Text>{this.state.initialPosition}</Text>
+      </Text>*/}
+
+      <Text>
+        <Text style={styles.leSpacer}></Text>
       </Text>
 
       <Text>
-        <Text style={styles.title}>Current position: </Text>
-        <Text>{this.state.lastPosition}</Text>
+        <Text style={styles.title}>Incoming longitude: </Text>
+        <Text>{this.state.incomingLongitude}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.title}>Incoming latitude: </Text>
+        <Text>{this.state.incomingLatitude}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.leSpacer}></Text>
       </Text>
 
       <Text>
         <Text style={styles.title}>Current longitude: </Text>
         <Text>{this.state.longitude}</Text>
       </Text>
+
       <Text>
         <Text style={styles.title}>Current latitude: </Text>
         <Text>{this.state.latitude}</Text>
+      </Text>
+
+      <Text>
+        <Text style={styles.leSpacer}></Text>
       </Text>
 
       <Text>
@@ -136,15 +194,14 @@ render() {
       </Text>
 
       <Text>
-        <Text style={styles.title}>lat: </Text>
-        <Text>{this.props.lat}</Text>
+
+        {JSON.stringify(GPS.getLastAdded()) + ' FROM GPS'}
+
       </Text>
 
-      <Text >
-        <Text style={styles.title}>long: </Text>
-        <Text>{this.props.long}</Text>
-      </Text>
-
+      {/* <Text>
+{JSON.stringify(fetch( 'https://flonoware.herokuapp.com/homebrew'))}
+</Text> */}
     </View>
   );
 }
@@ -155,6 +212,10 @@ var styles = StyleSheet.create({
     fontWeight: '500',
     color: '#00a3e0'
   },
+  leSpacer: {
+    height: 25
+
+  }
 });
 
 export default GPS;

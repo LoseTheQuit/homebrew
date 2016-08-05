@@ -39,7 +39,6 @@ const LatitudeSlider = React.createClass({
         <Slider
           value={this.state.value}
           onValueChange={(value) => this.setState({ value }) }
-          // onValueChange={ (value) =>  this.state.okSoRenderThis(value)}
           minimumTrackTintColor={'#2ea8ff'}
           maximumrackTintColor={'#005694'}
           thumbTintColor={'#0083e0'} step={1}
