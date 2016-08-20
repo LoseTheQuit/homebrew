@@ -1,6 +1,9 @@
 'use strict';
 
-import React, {Component} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 
 import {
   ListView,
@@ -11,101 +14,78 @@ import {
   ScrollView,
   Navigator,
   Text,
-  Image
+  Image,
+  TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
+
+var Button = require('react-native-button');
 var Slider = require('react-native-slider');
 var loDash = require('lodash');
 import clrs from '../utils/clrs'
 import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
-
+import NavStuff from './NavStuff';
+import VideoRecorder from 'react-native-video-recorder';
+import VideoPlayer from './VideoPlayer';
+import Video from 'react-native-video';
 
 export default class Main extends Component {
-
+  static propTypes = {
+    // title: PropTypes.string.isRequired,
+    // onForward: PropTypes.func.isRequired,
+    // onBack: PropTypes.func.isRequired,
+  }
   constructor(props) {
     super(props);
 
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-
-    const data = [
-      'Shark',
-      'Apple',
-      'Math',
-      'Ice Cream',
-      'Roof',
-      'House',
-      'Roof',
-      'House',
-      'Fish',
-      'Chicken',
-      'Burgers',
-      'Music',
-      'Waves',
-      'Coffee',
-    ]
-
     this.state = {
 
-      artists: dataSource.cloneWithRows(data),
       text: '',
       longitudeTransfer: 0,
       latitudeTransfer: 0,
-      // value: 0,
+      _handleBackButton: (event) => {
+          console.log(Object.keys(event));
+          // alert("Back button pressed")
+          this.props.navigator.push({
+            id: 'Cricket'
+          })
+      },
+      _handleVideo: (event) => {
+          console.log(Object.keys(event));
+          // alert("Back button pressed")
+          this.props.navigator.push({
+            id: 'VideoPlayer'
+          })
+      }
 
     }
-
-  }
-
-  getMoviesFromApiAsync() {
-    return fetch('https://flonoware.herokuapp.com/outermost', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }.then((response) => response.json())
-        .then((responseJson) => {
-          return responseJson.movies;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-
-    })
-  }
-
-
-  theYolk = (x) => {
-    this.setState({ longitudeTransfer })
-  }
-
-  renderRow = (text, sId, rId) => {
-    return (
-      <Text style={styles.textColorWhite}>
-        {rId}.{text}
-      </Text>
-    )
   }
 
   render() {
 
-    const {artists} = this.state;
-
     let pic = {
-      uri: 'https://hsto.org/files/230/81c/56d/23081c56d81744a686c0916ba25a2e2b.png'
+        uri: 'https://hsto.org/files/230/81c/56d/23081c56d81744a686c0916ba25a2e2b.png'
     }
 
     return (
 
       <ScrollView style={styles.container}>
 
-        <Text style={styles.homebrew}>homebrew</Text>
-        <Text style={styles.title}>GPS</Text>
-        <Text style={styles.version}>v0.0.009</Text>
+      <Button
+        style={ styles.backButton }
+        onPress={this.state._handleBackButton}>
+        Back
+     </Button>
 
-        {/*<TextInput
+     <Button
+       style={ styles.backButton }
+       onPress={this.state._handleVideo}>
+       Video
+    </Button>
+
+        {/* <TextInput
           style={styles.textInput}
           placeholder="Type here to translate!"
           onChangeText={(text) => this.setState({ text }) }
@@ -113,11 +93,11 @@ export default class Main extends Component {
 
         <Text style={styles.textInput}>
           {this.state.text}
-        </Text>*/}
+        </Text> */}
 
         {/*<Image source={pic} style={{ width: 193, height: 110 }}/>*/}
 
-        <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar>
+        {/* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */}
 
         <Slider
 
@@ -136,7 +116,6 @@ export default class Main extends Component {
         <Slider
 
           onValueChange={(value) => this.setState({ longitudeTransfer: value }) }
-          // onValueChange={ (value) =>  this.state.okSoRenderThis(value)}
           minimumTrackTintColor={'#2ea8ff'}
           maximumrackTintColor={'#005694'}
           thumbTintColor={'#0083e0'} step={.1}
@@ -159,6 +138,37 @@ export default class Main extends Component {
           alignSelf: 'stretch'
         }} renderRow={this.renderRow}/>*/}
 
+
+
+
+
+                 {/* <VideoPlayer></VideoPlayer> */}
+
+                  {/* <Video source={{uri: "http://flonoware.herokuapp.com/vid/small.mp4"}}
+                         rate={1.0}                   // 0 is paused, 1 is normal.
+                         volume={1.0}                 // 0 is muted, 1 is normal.
+                         muted={false}                // Mutes the audio entirely.
+                         paused={false}               // Pauses playback entirely.
+                         resizeMode="cover"           // Fill the whole screen at aspect ratio.
+                         repeat={true}                // Repeat forever.
+                         onLoadStart={this.loadStart} // Callback when video starts to load
+                         onLoad={this.setDuration}    // Callback when video loads
+                         onProgress={this.setTime}    // Callback every ~250ms with currentTime
+                         onEnd={this.onEnd}           // Callback when playback finishes
+                         onError={this.videoError}    // Callback when video cannot be loaded
+                         style={styles.backgroundVideoON} /> */}
+
+        {/* <VideoRecorder
+          ref="recorder"
+          onRecordingStarted={() => console.log('Started')}
+          onRecordingFinished={(e) => console.log(e.nativeEvent.file)}
+          onCameraAccessException={() => alert('No permission for camera')}
+          onCameraFailed={() => alert('Camera failed')}
+          type="front"
+          videoEncodingBitrate={7000000}
+          videoEncodingFrameRate={30}
+        /> */}
+
       </ScrollView>
 
     )
@@ -167,8 +177,9 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#effffe',
+     flex: 1,
+     padding: 10
+    // backgroundColor: '#effffe',
   },
   textColorWhite: {
     color: '#ffffff',
@@ -213,5 +224,30 @@ const styles = StyleSheet.create({
   version: {
     fontWeight: '100',
     marginBottom: 50
-  }
+  },
+  backgroundVideoOFF: {
+   position: 'absolute',
+   top: 0,
+   left: 0,
+   bottom: 0,
+   right: 0,
+   height: 0,
+   opacity: 0
+ },
+
+ backgroundVideoON: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+},
+backButton: {
+  flex: 1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: 'red'
+},
+
 });

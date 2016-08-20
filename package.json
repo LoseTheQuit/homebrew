@@ -6,9 +6,18 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "jest-cli": "^14.1.0",
     "lodash": "^4.14.1",
     "react": "15.2.1",
     "react-native": "^0.30.0",
-    "react-native-slider": "^0.9.0"
+    "react-native-button": "^1.6.0",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-slider": "^0.9.0",
+    "react-native-video": "^0.8.0",
+    "react-native-video-recorder": "^0.1.2"
+  },
+  "scripts": {
+    "test": "jest"
   }
+
 }
