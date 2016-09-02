@@ -1,8 +1,4 @@
- import React, {
-    Component,
-    PropTypes
-} from 'react';
-
+import React, { Component, PropTypes } from 'react';
 import { Navigator, Text, TouchableHighlight, View } from 'react-native';
 
 /*
@@ -17,102 +13,76 @@ access the files in the folder.
 import Main from './Main';
 import Rugby from './Rugby';
 import Cricket from './Cricket';
-import MyScene from './MyScene';
 import VideoPlayer from './VideoPlayer';
+import CoreCamera from './CoreCamera';
 
 // import BadInstagramCloneApp from './coreCamera'
 export default class Root extends Component {
 
   render() {
 
-        return (
+    return (
 
+      <Navigator
+      initialRoute={{
+        // title: 'homebrew',
+        // id: 'Cricket',
+        id: 'Main',
+        index: 0
+      }}
 
-          <Navigator
-            initialRoute={{
-              // title: 'homebrew',
-              id: 'Cricket',
-              index: 0
-            }}
-
-            renderScene = {
-             this.navigatorRenderScene
-              }
-
-        />
-)}
-
-  navigatorRenderScene(route, navigator){
-      
-      _navigator = navigator;
-                switch (route.id) {
-        case  'Cricket':
-          return(<Cricket navigator={navigator} title="Cricket"/>)
-        case  'Main':
-          return(<Main navigator={navigator} title="Main"/>)
-        case  'Rugby':
-          return(<Rugby navigator={navigator} title="Rugby"/>)
-        case  'VideoPlayer':
-          return(<VideoPlayer navigator={navigator} title="VideoPlayer"/>)
-        default:
-
+      renderScene = {
+      this.navigatorRenderScene
       }
+
+      />
+    )
   }
 
+  navigatorRenderScene(route, navigator) {
 
+    _navigator = navigator;
+    switch (route.id) {
+      case 'Cricket':
+        return (<Cricket navigator={navigator} title="Cricket"/>)
+      case 'Main':
+        return (<Main navigator={navigator} title="Main"/>)
+      case 'Rugby':
+        return (<Rugby navigator={navigator} title="Rugby"/>)
+      case 'VideoPlayer':
+        return (<VideoPlayer navigator={navigator} title="VideoPlayer"/>)
+      case 'CoreCamera':
+        return (<CoreCamera navigator={navigator} title="CoreCamera"/>)
+      default:
+
+    }
+  }
 }
 
-
-
-
-
+// <Cricket
+//   title={route.title}
 //
-//
+// // Function to call when a new scene should be displayed
+//   onForward={ () => {
+//     const nextIndex = route.index + 1;
+//     navigator.push({
+//       title: 'Scene ' + nextIndex,
+//       index: nextIndex,
+//     });
+//   }}
+//   configureScene={(route, routeStack) =>
+//   Navigator.SceneConfigs.FloatFromBottom}
+//   // Function to call to go back to the previous scene
+//   onBack={() => {
+//     if (route.index > 0) {
+//       navigator.pop();
+//     }
+//   }}
+// />
 
 
-
-    //
-    //
-
-    // <Cricket
-    //   title={route.title}
-    //
-    // // Function to call when a new scene should be displayed
-    //   onForward={ () => {
-    //     const nextIndex = route.index + 1;
-    //     navigator.push({
-    //       title: 'Scene ' + nextIndex,
-    //       index: nextIndex,
-    //     });
-    //   }}
-    //   configureScene={(route, routeStack) =>
-    //   Navigator.SceneConfigs.FloatFromBottom}
-    //   // Function to call to go back to the previous scene
-    //   onBack={() => {
-    //     if (route.index > 0) {
-    //       navigator.pop();
-    //     }
-    //   }}
-    // />
-
-    //
-    //
-
-//
-//
-
-            /*  <Main/>
-            /* <BadInstagramCloneApp /> */
-
-
-
-
-
-
-
-
-
-
+/*  <Main/>
+/* <BadInstagramCloneApp /> */
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -124,10 +94,6 @@ export default class Root extends Component {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-
-
-//
-//
 //           <Navigator
 //             initialRoute={routes[0]}
 //             initialRouteStack={routes}
@@ -161,10 +127,10 @@ export default class Root extends Component {
 //             style={{padding: 10, paddingTop: 100}}
 //           />
 
-    //       <Navigator
-    //    initialRoute={{ title: 'Awesome Scene', index: 0 }}
-    //    renderScene={(route, navigator) =>
-    //      <Main/>
-    //    }
-    //    style={{padding: 10}}
-    //  />
+//       <Navigator
+//    initialRoute={{ title: 'Awesome Scene', index: 0 }}
+//    renderScene={(route, navigator) =>
+//      <Main/>
+//    }
+//    style={{padding: 10}}
+//  />

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "test": "jest"
   },
   "dependencies": {
     "jest-cli": "^14.1.0",
@@ -11,13 +11,12 @@
     "react": "15.2.1",
     "react-native": "^0.30.0",
     "react-native-button": "^1.6.0",
-    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-camera": "git+https://github.com/marcejohnson/react-native-camera.git#master",
     "react-native-slider": "^0.9.0",
     "react-native-video": "^0.8.0",
     "react-native-video-recorder": "^0.1.2"
   },
-  "scripts": {
-    "test": "jest"
+  "devDependencies": {
+    "grunt-babel": "^6.0.0"
   }
-
 }

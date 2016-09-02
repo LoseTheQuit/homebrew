@@ -10,6 +10,9 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.brentvatne.react.ReactVideoPackage;
+// import com.lwansbrough.RCTCamera.RCTCameraPackage;
+// import com.lwansbrough.ReactCamera.ReactCamera;
+import com.lwansbrough.RCTCamera.*;
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
     private ReactRootView mReactRootView;
@@ -33,7 +36,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         mReactRootView.startReactApplication(mReactInstanceManager, "homebrew", null);
         setContentView(mReactRootView);
 
-    }   
+    }
 
     @Override
     public void invokeDefaultOnBackPressed() {

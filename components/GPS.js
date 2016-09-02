@@ -1,22 +1,15 @@
 /* eslint no-console: 0 */
 'use strict';
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {
-  ListView,
-  StatusBar,
-  StyleSheet, 
-  TextInput,
-  View,
-  Text,
-  Image,
+import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image,
 
 } from 'react-native';
 
 import TimerMixin from 'react-timer-mixin';
 import clrs from '../utils/clrs';
-import {fetcher} from '../utils/fetcher';
+import { fetcher } from '../utils/fetcher';
 import VideoRecorder from 'react-native-video-recorder';
 var Button = require('react-native-button');
 
@@ -64,8 +57,8 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
   statics: {
     calcCrow: (incomingLat1, incomingLon1, currentLat2, currentLon2) => {
 
-// km
-              var R = 6371;
+      // km
+      var R = 6371;
       var toRad = Math.PI / 180;
       var dLat = (currentLat2 - incomingLat1) * toRad;
       var dLon = (currentLon2 - incomingLon1) * toRad;
@@ -79,9 +72,9 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
     },
 
-   },  
+  },
 
-mixins: [TimerMixin],
+  mixins: [TimerMixin],
   componentDidMount: function() {
 
     this.setInterval(() => {
@@ -95,19 +88,23 @@ mixins: [TimerMixin],
 
           var dataFromServer = JSON.stringify(data[0]);
           var incomingLatitudeREST = JSON.stringify(data[0].lat);
-          var incomingLongitudeREST =  JSON.stringify(data[0].long);
+          var incomingLongitudeREST = JSON.stringify(data[0].long);
           console.log(incomingLatitudeREST)
           console.log(incomingLongitudeREST)
-        }
-
-        catch(err) {
+        } catch (err) {
           console.log("ERROR: " + err)
 
         }
 
-        this.setState({ dataFromServer })
-        this.setState({ incomingLatitudeREST });
-        this.setState({ incomingLongitudeREST });
+        this.setState({
+          dataFromServer
+        })
+        this.setState({
+          incomingLatitudeREST
+        });
+        this.setState({
+          incomingLongitudeREST
+        });
 
       }).catch((error) => {
 
@@ -125,58 +122,78 @@ mixins: [TimerMixin],
 
         // var totalDistance = GPS.calcCrow(180.3225525, 180.4619422,latitude, longitude ).toFixed(1);
 
-        this.setState({ initialPosition });
-        this.setState({ latitude });
-        this.setState({ longitude });
-        this.setState({ totalDistance });
+        this.setState({
+          initialPosition
+        });
+        this.setState({
+          latitude
+        });
+        this.setState({
+          longitude
+        });
+        this.setState({
+          totalDistance
+        });
 
       },
       (error) => console.log(error.message + " LOAD SAMPLE GPS DATA"),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000
+      }
     );
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var lastPosition = JSON.stringify(position);
-      this.setState({ lastPosition });
+      this.setState({
+        lastPosition
+      });
 
       var initialPosition = JSON.stringify(position);
       var incomingLatitude = JSON.stringify(position.coords.latitude);
       var incomingLongitude = JSON.stringify(position.coords.longitude);
 
-      this.setState({ initialPosition });
-      this.setState({ incomingLatitudeREST });  
-      this.setState({ incomingLongitudeREST });
+      this.setState({
+        initialPosition
+      });
+      this.setState({
+        incomingLatitudeREST
+      });
+      this.setState({
+        incomingLongitudeREST
+      });
 
     });
   },
   _handlePress(event) {
-     console.log('Pressed!');
+    console.log('Pressed!');
 
-     // this.refs.recorder.record();
-     // alert('Pressed!');
+    // this.refs.recorder.record();
+    // alert('Pressed!');
 
-   },
-componentWillUnmount: function() {
-  navigator.geolocation.clearWatch(this.watchID);
-},
+  },
+  componentWillUnmount: function() {
+    navigator.geolocation.clearWatch(this.watchID);
+  },
 
-render() {
-  debugger;
-  var display = 'THIS IS A ANOTHER TEST'
-  const {totalDistance} = this.state;
+  render() {
+    debugger;
+    var display = 'THIS IS A ANOTHER TEST'
+    const {totalDistance} = this.state;
 
-  return (
+    return (
 
-    <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.state.incomingLatitudeREST, this.state.incomingLongitudeREST, this.state.latitude, this.state.longitude), this.state.incomingLatitude = this.props.lat,this.state.incomingLongitude = this.props.long }>
+      <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.state.incomingLatitudeREST, this.state.incomingLongitudeREST, this.state.latitude, this.state.longitude), this.state.incomingLatitude = this.props.lat, this.state.incomingLongitude = this.props.long }>
 
-      {/* , this.state.incomingLatitude = this.props.lat,this.state.incomingLongitude = this.props.long */}
+      { /* , this.state.incomingLatitude = this.props.lat,this.state.incomingLongitude = this.props.long */ }
 
-      {/*<Text >
+      { /*<Text >
          <Text style={styles.title}>Incoming position: </Text>
          <Text>{this.state.initialPosition}</Text>
-         </Text>*/}
+         </Text>*/ }
 
-      {/* <VideoRecorder
+      { /* <VideoRecorder
       onPress={this._handlePress}
       style={styles.recordR}
       ref= {function(input) {
@@ -193,7 +210,7 @@ render() {
   type="front"
   videoEncodingBitrate={7000000}
   videoEncodingFrameRate={30}
-/> */}
+/> */ }
 
       <Text>
         <Text style={styles.leSpacer}></Text>
@@ -245,20 +262,20 @@ render() {
       {this.state.dataFromServer}
       </Text>
 
-             {/* <TextInput
+             { /* <TextInput
             ref={function(input) {
               if (input  === '123') {
                 // input.focus();
                 alert("All done!")
               }
-            }} /> */}
+            }} /> */ }
 
-          {/* this.refs.recorder.record(); */}
-          {/* this.refs.recorder.stop(); */}
+          { /* this.refs.recorder.record(); */ }
+          { /* this.refs.recorder.stop(); */ }
 
     </View>
-  );
-}
+      );
+  }
 });
 
 var styles = StyleSheet.create({
@@ -268,14 +285,13 @@ var styles = StyleSheet.create({
   },
   leSpacer: {
     height: 25
-  }
-  ,
-  // recordR: {
-  //   height: 100,
-  //   width: 100,
-  //   backgroundColor: clrs.white
-  // }
-  //
+  },
+// recordR: {
+//   height: 100,
+//   width: 100,
+//   backgroundColor: clrs.white
+// }
+//
 });
 
 export default GPS;
