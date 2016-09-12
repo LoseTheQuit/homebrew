@@ -26,15 +26,16 @@ export default class Root extends Component {
       <Navigator
       initialRoute={{
         // title: 'homebrew',
-        // id: 'Cricket',
-        id: 'Main',
+        id: 'Cricket',
+        // id: 'Main',
         index: 0
       }}
+
+      configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}
 
       renderScene = {
       this.navigatorRenderScene
       }
-
       />
     )
   }

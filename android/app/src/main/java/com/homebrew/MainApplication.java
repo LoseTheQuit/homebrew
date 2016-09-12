@@ -15,6 +15,10 @@ import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import java.util.Arrays;
 import java.util.List;
 
+// public int testInt = 182;
+// public double tesstDouble = 1.82;
+// public float testFloat = 18.2;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {

@@ -2,8 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight,
-} from 'react-native';
+import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
 
 var Button = require('react-native-button');
 var Slider = require('react-native-slider');
@@ -17,7 +16,8 @@ import VideoRecorder from 'react-native-video-recorder';
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
 import CoreCamera from './CoreCamera';
-
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height
 export default class Main extends Component {
   static propTypes = {
     // title: PropTypes.string.isRequired,
@@ -30,20 +30,22 @@ export default class Main extends Component {
     this.state = {
 
       text: '',
-      longitudeTransfer: 0,
-      latitudeTransfer: 0,
+      maxDistance: '',
       _handleBackButton: (event) => {
         console.log(Object.keys(event));
         // alert("Back button pressed")
-
-        this.refs.recorder.record();
-
-        // this.props.navigator.push({
-        //   id: 'Cricket'
-        // })
-
+        this.props.navigator.push({
+          id: 'Cricket'
+        })
       },
-      _handleVideo: (event) => {
+      _handleRecordVideo: (event) => {
+        console.log(Object.keys(event));
+        // alert("Back button pressed")
+        this.props.navigator.push({
+          id: 'CoreCamera'
+        })
+      },
+      _handleWatchVideo: (event) => {
         console.log(Object.keys(event));
         // alert("Back button pressed")
         this.props.navigator.push({
@@ -56,26 +58,40 @@ export default class Main extends Component {
   render() {
 
     let pic = {
-      uri: 'https://hsto.org/files/230/81c/56d/23081c56d81744a686c0916ba25a2e2b.png'
+      uri: 'http://quietmike.org/wp-content/uploads/2016/07/BlackLivesMatter-1.jpg'
     }
 
     return (
 
-      <ScrollView style={styles.container}>
-      <View style={styles.mainNavContainer}>
-      <Button
+      // <ScrollView  style={styles.scroll}>  </ScrollView>
+
+      <View style={styles.container}>
+         <Image source={pic} style={styles.backgroundImage}>
+           <View style={styles.imageOverlay}>
+           <View style={styles.mainNavContainer}>
+
+              <Button
       style={ styles.backButton }
       onPress={this.state._handleBackButton}>
-        Back
-     </Button>
+                  Back
+              </Button>
 
-     <Button
+              <Button
+      style={styles.backButton}
+      onPress={this.state._handleRecordVideo}>
+                 Record
+              </Button>
+
+                { /* <Button
       style={ styles.backButton }
-      onPress={this.state._handleVideo}>
-       Video
-    </Button>
+      onPress={this.state._handleWatchVideo}>
+                Play
+              </Button> */ }
 
-    </View>
+              </View>
+
+              <View style={ styles.contentContainer }>
+
         { /* <TextInput
           style={styles.textInput}
           placeholder="Type here to translate!"
@@ -86,91 +102,93 @@ export default class Main extends Component {
           {this.state.text}
         </Text> */ }
 
-        { /*<Image source={pic} style={{ width: 193, height: 110 }}/>*/ }
-
         { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
 
-        <Slider
+       <GPS  max={this.state.maxDistance}/>
 
-      onValueChange={value => this.setState({
-        latitudeTransfer: value
-      }) }
-      minimumTrackTintColor={'#2ea8ff'}
-      maximumrackTintColor={'#005694'}
-      thumbTintColor={'#0083e0'} step={.1}
-      minimumValue={-180} maximumValue={180}
-
-      />
-
-        <Text style={styles.coordinates}>
-          Latitude: {this.state.latitudeTransfer}
-        </Text>
-
-        <Slider
-
+       <Slider
       onValueChange={(value) => this.setState({
-        longitudeTransfer: value
+        maxDistance: value
       }) }
       minimumTrackTintColor={'#2ea8ff'}
       maximumrackTintColor={'#005694'}
       thumbTintColor={'#0083e0'} step={.1}
-      minimumValue={-180} maximumValue={180}
-
+      minimumValue={0} maximumValue={10000}
       />
-
-        <Text style={styles.coordinates}>
-          Longitude: {this.state.longitudeTransfer}
-        </Text>
-
-        <GPS long={this.state.longitudeTransfer}  lat={this.state.latitudeTransfer}/>
-
-        { /* <Text style={styles.coordinates}>
-          This is it!: {this.state.longitudeTransfer}
-        </Text> */ }
 
         { /*<ListView dataSource={artists} style={{
            flex: 100,
           alignSelf: 'stretch'
         }} renderRow={this.renderRow}/>*/ }
+        <View style={styles.mainNavContainer}>
 
-        { /* <VideoPlayer></VideoPlayer> */ }
 
-        { /* <VideoRecorder
-      ref="recorder"
-      onRecordingStarted={() => console.log('Started')}
-      onRecordingFinished={(e) => console.log(e.nativeEvent.file)}
-      onCameraAccessException={() => alert('No permission for camera')}
-      onCameraFailed={() => alert('Camera failed')}
-      type="back"
-      videoEncodingBitrate={7000000}
-      videoEncodingFrameRate={30}
-      /> */ }
-
-      </ScrollView>
+            <Button
+      style={styles.backButton}
+      onPress={this.state._handleWatchVideo}>
+              Watch
+            </Button>
+           </View>
+           </View>
+      </View>
+       </Image>
+       </View>
 
     )
   }
 }
 
 const styles = StyleSheet.create({
+
   container: {
+    flex: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    // width: 100
+    backgroundColor: '#effffe',
+  },
+  contentContainer: {
     flex: 1,
-    padding: 10
+    justifyContent: 'flex-start',
+  // alignItems: 'flex-start',
+  // flexDirection: 'column',
+  // padding: 10
   // backgroundColor: '#effffe',
+  },
+  backgroundImage: {
+    flex: 28,
+    resizeMode: 'cover', // or 'stretch'
+    width: width,
+    height: height,
+  },
+  imageOverlay: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "rgba(0, 107, 148, .75)",
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // alignSelf: 'stretch',
   },
   mainNavContainer: {
     flex: 2,
     flexDirection: "row",
+    padding: 0,
     // justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    flexWrap: "nowrap",
+    // alignItems: 'flex-start',
+    // flexWrap: "nowrap",
     justifyContent: 'space-between',
-    // alignContent: 'flex-start',
-
-
   },
-  textColorWhite: {
-    color: '#ffffff',
+  backButton: {
+    flex: 1,
+    color: '#fff',
+    borderLeftWidth: 4,
+    borderRightWidth: 4,
+    height: 70,
+    borderWidth: 10,
+    borderColor: 'red',
+    borderStyle: 'solid'
+  // justifyContent: 'center',
+  // alignItems: 'center',
   },
   centerThis: {
     justifyContent: 'flex-start',
@@ -212,32 +230,5 @@ const styles = StyleSheet.create({
   version: {
     fontWeight: '100',
     marginBottom: 50
-  },
-  backgroundVideoOFF: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    height: 0,
-    opacity: 0
-  },
-
-  backgroundVideoON: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  backButton: {
-    flex: 1,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'red',
-
-  },
-
+  }
 });

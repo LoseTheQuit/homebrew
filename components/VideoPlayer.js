@@ -17,9 +17,8 @@ export default class VideoPlayer extends Component {
       _handleBackButton: (event) => {
         console.log(Object.keys(event));
         this.onEnd;
-
         this.props.navigator.push({
-          id: 'Cricket'
+          id: 'Main'
         })
       },
     }
@@ -45,7 +44,7 @@ export default class VideoPlayer extends Component {
       onEnd={this.onEnd} // Callback when playback finishes
       onError={this.videoError} // Callback when video cannot be loaded
       style={styles.backgroundVideo} />
-
+      
                <Button
       style={ styles.backButton}
       onPress={this.state._handleBackButton}>

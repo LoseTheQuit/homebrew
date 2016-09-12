@@ -21,69 +21,67 @@ export default class Cricket extends Component {
   constructor(props) {
     super(props);
 
+    this.stormer = 100;
     this.state = {
-
-      text: '',
-      longitudeTransfer: 0,
-      latitudeTransfer: 0,
-
-      _buttonPress: (event) => {
+      stormer: 0,
+      _buttonPress: () => {
         this.props.navigator.push({
           id: 'Main'
-
         })
       },
+      channelChanger: () => {
+        console.log("channelChanger: START")
+        setTimeout(() => {
+          // if (this.stormer < 1) {
+          this.props.navigator.push({
+            id: 'CoreCamera'
+          })
+          // }
+          console.log("channelChanger: FINISH")
+        }, 3000)
+      },
+      componentDidMount: function() {}
     }
   }
 
   render() {
-    let pic = {
-      uri: 'http://quietmike.org/wp-content/uploads/2016/07/BlackLivesMatter-1.jpg'
-    }
     return (
       <View style={styles.container}>
-       <Image source={pic} style={styles.backgroundImage}>
-        <View style={styles.cardOverlay1}></View>
-        <View style={styles.cardOverlay2}></View>
-        <View style={styles.cardOverlay3}></View>
-        <View style={styles.cardOverlay4}>
-         <Text style={styles.largeText}>homebrew</Text>
-        </View>
-        <View style={styles.cardOverlay5}></View>
-        <View style={styles.cardOverlay6}>
-         <Text style={styles.largeText}>Alpha v0.0.012</Text>
-        </View>
-         <TouchableHighlight style={styles.cardOverlay7} onPress={this.state._buttonPress}>
-          <Text style={styles.buttonText}>Enter</Text>
-         </TouchableHighlight>
-       </Image>
-      </View>
 
+           <Text style={styles.largeText}>homebrew: </Text>
+           <Text style={styles.largeText}>alpha v0.0.014</Text>
+           <Text style={styles.infoText}></Text>
+
+           <TouchableHighlight
+      style={styles.button}
+      onPress={this.state._buttonPress}
+      ref={this.state.channelChanger}>
+           <Text style={styles.buttonText}>Enter</Text>
+           </TouchableHighlight>
+
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 28,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    padding: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: "#00a3e0"
   },
-  backgroundImage: {
-    flex: 28,
-    // resizeMode: 'stretch', // or 'stretch'
-    resizeMode: 'cover', // or 'stretch'
-    width: 500,
-    height: null,
-  },
   largeText: {
-    flex: 1,
-    fontSize: 50,
-    fontFamily: "Georgia",
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 0,
+    fontSize: 24,
+    fontFamily: "Helvetica",
+    // justifyContent: 'center',
+    // alignItems: 'center',
     color: '#c7c7c7',
+  },
+  infoText: {
+    flex: 2,
   },
   button: {
     flex: 1,
@@ -99,54 +97,5 @@ const styles = StyleSheet.create({
     fontFamily: "Georgia",
     color: '#ddd',
   // backgroundColor: "#ff4334"
-  },
-  cardOverlay1: {
-    flex: 1,
-    backgroundColor: "rgba(0, 107, 148, .75)",
-    // alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cardOverlay2: {
-    flex: 2,
-    backgroundColor: "rgba(0, 126, 173, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardOverlay3: {
-    flex: 3,
-    backgroundColor: "rgba(0, 144, 199, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardOverlay4: {
-    flex: 4,
-    backgroundColor: "rgba(0, 163, 224, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardOverlay5: {
-    flex: 5,
-    backgroundColor: "rgba(0, 182, 250, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardOverlay6: {
-    flex: 6,
-    backgroundColor: "rgba(20, 191, 255, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardOverlay7: {
-    flex: 7,
-    backgroundColor: "rgba(46, 198, 255, .75)",
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
   }
 });
