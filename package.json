@@ -12,6 +12,7 @@
     "react-native": "^0.30.0",
     "react-native-button": "^1.6.0",
     "react-native-camera": "git+https://github.com/marcejohnson/react-native-camera.git#master",
+    "react-native-message-bar": "^1.6.0",
     "react-native-slider": "^0.9.0",
     "react-native-video": "^0.8.0",
     "react-native-video-recorder": "^0.1.2"

@@ -8,6 +8,7 @@ export default class CoreCamera extends Component {
     super(props)
 
     this.state = {
+      recordToll: 0,
       _handleBackButton: (event) => {
         console.log(Object.keys(event));
 
@@ -22,6 +23,27 @@ export default class CoreCamera extends Component {
         //   id: 'Main'
         // })
 
+      },
+      recordOnWake: (x) => {
+        alert('THIS IS ON')
+      // if (x === 1) {
+      //   //  this.camera.capture()
+      //   //  .then((data) => console.log(data))
+      //   //.catch(err => console.error(err));
+      // } else {
+      //   //  this.camera.stopCapture()
+      //   this.props.navigator.push({
+      //     id: 'Main'
+      //   })
+      // }
+      },
+      componentWillUnmount: function() {
+        navigator.geolocation.clearWatch(this.watchID);
+      },
+
+      componentDidMount: () => {
+        this.resetCAM();
+        alert('CAM - on -  RESET')
       }
     }
   }
@@ -53,6 +75,7 @@ export default class CoreCamera extends Component {
 
             <TouchableHighlight
       style={styles.capture}
+      ref={this.takePictureTimed.bind(this)}
       onPress={this.takePicture.bind(this, 1)}>
                <Text style={styles.buttonText}>[withBIND]</Text>
             </TouchableHighlight>
@@ -68,6 +91,18 @@ export default class CoreCamera extends Component {
       </View>
     )
   }
+
+  takePictureTimed() {
+    if (this.state.recordToll === 0)
+      setTimeout(() => {
+        this.camera.stopCapture()
+        this.camera.capture()
+          .then((data) => console.log(data))
+          .catch(err => console.error(err));
+        this.state.recordToll++;
+      }, 250)
+  }
+
   takePicture(x) {
     this.camera.stopCapture()
     if (x === 1) {
@@ -81,7 +116,6 @@ export default class CoreCamera extends Component {
       })
     }
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -93,14 +127,13 @@ const styles = StyleSheet.create({
     flex: 9,
     justifyContent: 'flex-end',
     alignItems: 'center',
-
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width
   },
   capture: {
-
     flex: 0,
     backgroundColor: '#fff',
+    // backgroundColor: '#000',
     borderRadius: 5,
     // color: '#000',
     padding: 10,

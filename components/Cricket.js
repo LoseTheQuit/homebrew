@@ -32,13 +32,13 @@ export default class Cricket extends Component {
       channelChanger: () => {
         console.log("channelChanger: START")
         setTimeout(() => {
-          // if (this.stormer < 1) {
-          this.props.navigator.push({
-            id: 'CoreCamera'
-          })
-          // }
+          if (this.stormer < 1) {
+            this.props.navigator.push({
+              id: 'CoreCamera'
+            })
+          }
           console.log("channelChanger: FINISH")
-        }, 3000)
+        }, 1000)
       },
       componentDidMount: function() {}
     }

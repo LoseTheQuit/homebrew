@@ -1,3 +1,4 @@
+
 /* eslint no-console: 0 */
 'use strict';
 
@@ -12,30 +13,36 @@ import clrs from '../utils/clrs';
 import { fetcher } from '../utils/fetcher';
 import VideoRecorder from 'react-native-video-recorder';
 var Button = require('react-native-button');
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 // GOT IT WORKING
 const GPS = React.createClass({
 
   async postData() {
-    // fetch('flonoware.herokuapp.com/homebrew', {
+
+    alert("POST DATA SENT")
+    console.log("POST DATA SENT")
 
     try {
 
-
-      let postIT = await  fetch('http://localhost:5000/homebrew', {
+      let postIT = await  fetch('https://flonoware.herokuapp.com/homebrew', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          lat: this.state.latitude,
-          long: this.state.longitude,
+          lat: parseFloat(this.state.latitude),
+          long: parseFloat(this.state.longitude),
         })
       })
+
       let gpsPOSTJSON = await postIT.json()
       console.log('gpsPOSTJSON: ')
       console.log(gpsPOSTJSON)
+
+
     } catch (e) {
       console.log("ERROR: ")
       console.log(e)
@@ -53,6 +60,13 @@ const GPS = React.createClass({
     } catch (err) {
       console.log(null, err)
     }
+    MessageBarManager.showAlert({
+      title: 'Your alert title goes here',
+      message: 'Your alert message goes here',
+      alertType: 'success',
+    // See Properties section for full customization
+    // Or check `index.ios.js` or `index.android.js` for a complete example
+    });
   },
 
   watchID: (null: ?number),
@@ -88,13 +102,11 @@ const GPS = React.createClass({
         // console.log("totalDistance: " + this.state.totalDistance)
 
         if (this.state.totalDistance >= this.state.maxDistanceChecker()) {
-
-          //  console.log("ALL CLEAR!")
-
+          console.log("ALL CLEAR!")
           return "ALL CLEAR!"
         } else {
           console.log("WARNING!")
-          return 'WARNING!'
+          return 'WARNING! - CLEAR AND PRESENT DANGER'
         }
 
       },
@@ -129,23 +141,15 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
   mixins: [TimerMixin],
   componentDidMount: function() {
-
+    MessageBarManager.registerMessageBar(this.refs.alert);
     this.setInterval(() => {
       this.getData().then((data) => {
-
-        var dataFromServer = JSON.stringify(data);
-
-        // var incomingLatitudeREST = JSON.stringify(data[0].lat);
-        // var incomingLongitudeREST =  JSON.stringify(data[0].long);
 
         try {
 
           var dataFromServer = JSON.stringify(data[0]);
-          var incomingLatitudeREST = JSON.stringify(data[0].lat);
-          var incomingLongitudeREST = JSON.stringify(data[0].long);
-
-          // console.log(incomingLatitudeREST)
-          // console.log(incomingLongitudeREST)
+          var incomingLatitudeREST = JSON.stringify(parseFloat(data[0].lat));
+          var incomingLongitudeREST = JSON.stringify(parseFloat(data[0].long));
 
           this.setState({
             dataFromServer
@@ -160,7 +164,6 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
         } catch (err) {
           console.log("ERROR: " + err)
         }
-
 
       }).catch((error) => {
         console.error(error);
@@ -291,6 +294,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
             { /* <Text style={styles.gpsData}>{this.state.latitude}</Text> */ }
           </Text>
 
+          <MessageBarAlert ref="alert" />
     </View>
     )
   }
