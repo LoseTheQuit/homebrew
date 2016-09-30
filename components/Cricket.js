@@ -3,7 +3,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image, TouchableHighlight } from 'react-native';
+import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image, TouchableHighlight} from 'react-native';
 
 import TimerMixin from 'react-timer-mixin';
 import clrs from '../utils/clrs';
@@ -21,45 +21,42 @@ export default class Cricket extends Component {
   constructor(props) {
     super(props);
 
-    this.stormer = 100;
     this.state = {
-      stormer: 0,
       _buttonPress: () => {
         this.props.navigator.push({
           id: 'Main'
         })
       },
       channelChanger: () => {
-        console.log("channelChanger: START")
+        console.log("testRun: 1 second has passed")
         setTimeout(() => {
-          if (this.stormer < 1) {
-            this.props.navigator.push({
-              id: 'CoreCamera'
-            })
-          }
-          console.log("channelChanger: FINISH")
-        }, 1000)
+          this.props.navigator.push({
+            id: 'CoreCamera'
+          })
+        }, 3000)
       },
-      componentDidMount: function() {}
+      componentDidMount: function() {
+        console.log('THI IS ON')
+      }
     }
   }
 
   render() {
+
     return (
       <View style={styles.container}>
 
-           <Text style={styles.largeText}>homebrew: </Text>
-           <Text style={styles.largeText}>alpha v0.0.014</Text>
-           <Text style={styles.infoText}></Text>
+                <Text style={styles.largeText}>homebrew:
+                </Text>
+                <Text style={styles.largeText}>alpha v0.0.014</Text>
+                <Text style={styles.infoText}></Text>
 
-           <TouchableHighlight
-      style={styles.button}
-      onPress={this.state._buttonPress}
-      ref={this.state.channelChanger}>
-           <Text style={styles.buttonText}>Enter</Text>
-           </TouchableHighlight>
+                <TouchableHighlight style={styles.button} onPress={this.state._buttonPress} ref={this.state.channelChanger}>
+                    <Text style={styles.buttonText}>Enter</Text>
+                </TouchableHighlight>
 
-      </View>
+            </View>
+
     )
   }
 }
@@ -73,15 +70,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#00a3e0"
   },
   largeText: {
+
     flex: 0,
     fontSize: 24,
     fontFamily: "Helvetica",
     // justifyContent: 'center',
     // alignItems: 'center',
-    color: '#c7c7c7',
+    color: '#c7c7c7'
   },
   infoText: {
-    flex: 2,
+    flex: 2
   },
   button: {
     flex: 1,

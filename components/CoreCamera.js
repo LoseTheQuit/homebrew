@@ -47,48 +47,35 @@ export default class CoreCamera extends Component {
       }
     }
   }
+  //  this.takePicture(1)
 
   render() {
     return (
       <View style={styles.container}>
-     <Camera
-      ref={(cam) => {
+                <Camera ref={(cam) => {
         this.camera = cam;
         try {
           if (this.camera != null) {
-            // this.takePicture(1)
           }
         } catch (e) {
-          console.log(e)
+          console.log(e);
           alert(e)
         }
-      }}
+      }} style={styles.preview} captureAudio={true} playSoundOnCapture={true} aspect={Camera.constants.Aspect.fill} captureMode={Camera.constants.CaptureMode.video}>
 
-      // style={styles.preview}
+                    <View style={styles.buttonContainer}>
 
-      captureAudio={true}
-      playSoundOnCapture={true}
-      aspect={Camera.constants.Aspect.fill}
-      captureMode={Camera.constants.CaptureMode.video}>
+                        <TouchableHighlight style={styles.capture} ref={this.takePictureTimed.bind(this)} onPress={this.takePicture.bind(this, 1)}>
+                            <Text style={styles.buttonText}>[withBIND]</Text>
+                        </TouchableHighlight>
 
-          <View style={styles.buttonContainer}>
+                        <TouchableHighlight style={styles.capture} onPress={this.takePicture.bind(this, 100)}>
+                            <Text style={styles.buttonText}>[BACK]</Text>
+                        </TouchableHighlight>
 
-            <TouchableHighlight
-      style={styles.capture}
-      ref={this.takePictureTimed.bind(this)}
-      onPress={this.takePicture.bind(this, 1)}>
-               <Text style={styles.buttonText}>[withBIND]</Text>
-            </TouchableHighlight>
-
-              <TouchableHighlight
-      style={styles.capture}
-      onPress={this.takePicture.bind(this, 100)}>
-                 <Text style={styles.buttonText}>[BACK]</Text>
-              </TouchableHighlight>
-
-          </View>
-        </Camera>
-      </View>
+                    </View>
+                </Camera>
+            </View>
     )
   }
 
@@ -96,9 +83,7 @@ export default class CoreCamera extends Component {
     if (this.state.recordToll === 0)
       setTimeout(() => {
         this.camera.stopCapture()
-        this.camera.capture()
-          .then((data) => console.log(data))
-          .catch(err => console.error(err));
+        this.camera.capture().then((data) => console.log(data)).catch(err => console.error(err));
         this.state.recordToll++;
       }, 250)
   }
@@ -106,9 +91,7 @@ export default class CoreCamera extends Component {
   takePicture(x) {
     this.camera.stopCapture()
     if (x === 1) {
-      this.camera.capture()
-        .then((data) => console.log(data))
-        .catch(err => console.error(err));
+      this.camera.capture().then((data) => console.log(data)).catch(err => console.error(err));
     } else {
       this.camera.stopCapture()
       this.props.navigator.push({
@@ -121,7 +104,7 @@ export default class CoreCamera extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 10,
-    backgroundColor: "#000",
+    backgroundColor: "#000"
   },
   preview: {
     flex: 9,
@@ -147,6 +130,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start',
     // flexWrap: "nowrap",
-    justifyContent: 'space-between',
-  },
+    justifyContent: 'space-between'
+  }
 });
