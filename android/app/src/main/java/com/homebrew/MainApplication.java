@@ -9,7 +9,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
-
 import java.util.Arrays;
 import java.util.List;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
@@ -36,7 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
   // public List<Class<? extends JavaScriptModule>> createJSModules() {
   //     return Collections.emptyList();
   // }
-  //
+
   // @Override
   // public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
   //     return Arrays.asList();

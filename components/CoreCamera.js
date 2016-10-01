@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { AppRegistry, Dimensions, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { AppRegistry, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import Camera from 'react-native-camera';
 
 export default class CoreCamera extends Component {
@@ -16,12 +16,15 @@ export default class CoreCamera extends Component {
           this.camera.stopCapture()
         } catch (e) {
           console.log(e)
+          console.log(e)
+          console.log(e)
           alert(e)
         }
 
-        // this.props.navigator.push({
-        //   id: 'Main'
-        // })
+      },
+      buttonStyleChange: () => {
+
+        console.log('buttonStyleChange IS ON')
 
       },
       recordOnWake: (x) => {
@@ -47,6 +50,7 @@ export default class CoreCamera extends Component {
       }
     }
   }
+
   //  this.takePicture(1)
 
   render() {
@@ -61,7 +65,7 @@ export default class CoreCamera extends Component {
           console.log(e);
           alert(e)
         }
-      }} style={styles.preview} captureAudio={true} playSoundOnCapture={true} aspect={Camera.constants.Aspect.fill} captureMode={Camera.constants.CaptureMode.video}>
+      }} captureAudio={true} playSoundOnCapture={true} aspect={Camera.constants.Aspect.fill} captureMode={Camera.constants.CaptureMode.video}>
 
                     <View style={styles.buttonContainer}>
 
@@ -83,7 +87,10 @@ export default class CoreCamera extends Component {
     if (this.state.recordToll === 0)
       setTimeout(() => {
         this.camera.stopCapture()
-        this.camera.capture().then((data) => console.log(data)).catch(err => console.error(err));
+        this.camera.capture().then((data) => {
+          console.log('cam data: ')
+          console.log(data)
+        }).catch(err => console.error(err));
         this.state.recordToll++;
       }, 250)
   }
@@ -111,7 +118,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
+    backgroundColor: "#000"
   },
   capture: {
     flex: 0,

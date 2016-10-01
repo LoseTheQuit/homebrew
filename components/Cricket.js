@@ -22,6 +22,7 @@ export default class Cricket extends Component {
     super(props);
 
     this.state = {
+
       _buttonPress: () => {
         this.props.navigator.push({
           id: 'Main'
@@ -31,9 +32,10 @@ export default class Cricket extends Component {
         console.log("testRun: 1 second has passed")
         setTimeout(() => {
           this.props.navigator.push({
-            id: 'CoreCamera'
+            //id: 'CoreCamera'
+            id: 'Main'
           })
-        }, 3000)
+        }, 2000)
       },
       componentDidMount: function() {
         console.log('THI IS ON')
@@ -48,7 +50,7 @@ export default class Cricket extends Component {
 
                 <Text style={styles.largeText}>homebrew:
                 </Text>
-                <Text style={styles.largeText}>alpha v0.0.014</Text>
+                <Text style={styles.largeText}>alpha v0.0.016</Text>
                 <Text style={styles.infoText}></Text>
 
                 <TouchableHighlight style={styles.button} onPress={this.state._buttonPress} ref={this.state.channelChanger}>

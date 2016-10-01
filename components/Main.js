@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
+import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 
 var Button = require('react-native-button');
 var Slider = require('react-native-slider');
@@ -12,6 +12,7 @@ import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 import NavStuff from './NavStuff';
+import RestView from './RestView';
 import VideoRecorder from 'react-native-video-recorder';
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
@@ -26,9 +27,29 @@ export default class Main extends Component {
   }
   constructor(props) {
     super(props);
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    const data = [
+      'Shark',
+      'Apple',
+      'Math',
+      'Ice Cream',
+      'Roof',
+      'House',
+      'Roof',
+      'House',
+      'Fish',
+      'Chicken',
+      'Burgers',
+      'Music',
+      'Waves',
+      'Coffee'
+    ];
 
     this.state = {
-
+      artists: dataSource.cloneWithRows(data),
       text: '',
       maxDistance: '',
       _handleBackButton: (event) => {
@@ -57,42 +78,32 @@ export default class Main extends Component {
 
   render() {
 
+    const {artists} = this.state;
+
     let pic = {
       uri: 'http://quietmike.org/wp-content/uploads/2016/07/BlackLivesMatter-1.jpg'
     }
 
     return (
 
-      // <ScrollView  style={styles.scroll}>  </ScrollView>
-
       <View style={styles.container}>
-         <Image source={pic} style={styles.backgroundImage}>
-           <View style={styles.imageOverlay}>
-           <View style={styles.mainNavContainer}>
+                <Image source={pic} style={styles.backgroundImage}>
+                    <View style={styles.imageOverlay}>
+                        <View style={styles.mainNavContainer}>
 
-              <Button
-      style={ styles.backButton }
-      onPress={this.state._handleBackButton}>
-                  Back
-              </Button>
+                            <Button style={styles.backButton} onPress={this.state._handleBackButton}>
+                                Back
+                            </Button>
 
-              <Button
-      style={styles.backButton}
-      onPress={this.state._handleRecordVideo}>
-                 Record
-              </Button>
+                            <Button style={styles.backButton} onPress={this.state._handleRecordVideo}>
+                                Record
+                            </Button>
 
-                { /* <Button
-      style={ styles.backButton }
-      onPress={this.state._handleWatchVideo}>
-                Play
-              </Button> */ }
+                        </View>
 
-              </View>
+                        <View style={styles.contentContainer}>
 
-              <View style={ styles.contentContainer }>
-
-        { /* <TextInput
+                            { /* <TextInput
           style={styles.textInput}
           placeholder="Type here to translate!"
           onChangeText={(text) => this.setState({ text }) }
@@ -102,37 +113,25 @@ export default class Main extends Component {
           {this.state.text}
         </Text> */ }
 
-        { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
+                            { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
 
-       <GPS  max={this.state.maxDistance}/>
+                            { /*<GPS max={this.state.maxDistance}/>*/ }
 
-       <Slider
-      onValueChange={(value) => this.setState({
+                            <Slider onValueChange={(value) => this.setState({
         maxDistance: value
-      }) }
-      minimumTrackTintColor={'#2ea8ff'}
-      maximumrackTintColor={'#005694'}
-      thumbTintColor={'#0083e0'} step={.1}
-      minimumValue={0} maximumValue={10000}
-      />
+      })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/>
 
-        { /*<ListView dataSource={artists} style={{
-           flex: 100,
-          alignSelf: 'stretch'
-        }} renderRow={this.renderRow}/>*/ }
-        <View style={styles.mainNavContainer}>
+                            <RestView></RestView>
+                            <View style={styles.mainNavContainer}>
 
-
-            <Button
-      style={styles.backButton}
-      onPress={this.state._handleWatchVideo}>
-              Watch
-            </Button>
-           </View>
-           </View>
-      </View>
-       </Image>
-       </View>
+                                <Button style={styles.backButton} onPress={this.state._handleWatchVideo}>
+                                    Watch
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Image>
+            </View>
 
     )
   }
@@ -144,11 +143,10 @@ const styles = StyleSheet.create({
     flex: 10,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    // width: 100
-    backgroundColor: '#effffe',
+    backgroundColor: '#effffe'
   },
   contentContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'flex-start',
   // alignItems: 'flex-start',
   // flexDirection: 'column',
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
     flex: 28,
     resizeMode: 'cover', // or 'stretch'
     width: width,
-    height: height,
+    height: height
   },
   imageOverlay: {
     flex: 1,
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start',
     // flexWrap: "nowrap",
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   backButton: {
     flex: 1,
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
@@ -230,5 +228,8 @@ const styles = StyleSheet.create({
   version: {
     fontWeight: '100',
     marginBottom: 50
+  },
+  fontColorWhite: {
+    color: '#ffffff'
   }
 });

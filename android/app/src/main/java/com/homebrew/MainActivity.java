@@ -13,7 +13,8 @@ import com.brentvatne.react.ReactVideoPackage;
 // import com.lwansbrough.RCTCamera.RCTCameraPackage;
 // import com.lwansbrough.ReactCamera.ReactCamera;
 import com.lwansbrough.RCTCamera.*;
-
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+      
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
