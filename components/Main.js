@@ -13,6 +13,7 @@ import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 import NavStuff from './NavStuff';
 import RestView from './RestView';
+import RestList from './RestList';
 import VideoRecorder from 'react-native-video-recorder';
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
@@ -121,13 +122,16 @@ export default class Main extends Component {
         maxDistance: value
       })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/>
 
-                            <RestView></RestView>
-                            <View style={styles.mainNavContainer}>
+                            <RestList></RestList>
 
+                            { /* <RestView></RestView> */ }
+
+                            <View style={styles.mainNavContainer}>
                                 <Button style={styles.backButton} onPress={this.state._handleWatchVideo}>
                                     Watch
                                 </Button>
                             </View>
+
                         </View>
                     </View>
                 </Image>
@@ -233,3 +237,4 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   }
 });
+;
