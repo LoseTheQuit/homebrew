@@ -36,15 +36,13 @@ const RestView = React.createClass({
   getInitialState() {
 
     return {
-      restData: dataSource.cloneWithRows(['a', 'bb', 'ccc'])
+      restData: dataSource.cloneWithRows([])
     // restData: this.genRows()
     };
   },
   genRows: () => {
-    var genRowsData = ['a', 'b', 'c'];
-    (async () => {
-      //  return genRowsData
-      try {
+     (async () => {
+       try {
         console.log('genRows(): START')
         return await fetch('https://flonoware.herokuapp.com/homebrew')
             .then((x) => x.json())
@@ -52,7 +50,6 @@ const RestView = React.createClass({
               if (responseData) {
                 console.log('genRows() responseData: ')
                 console.log(responseData)
-
               }
 
             })

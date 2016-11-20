@@ -32,10 +32,10 @@ export default class Cricket extends Component {
         console.log("testRun: 1 second has passed")
         setTimeout(() => {
           this.props.navigator.push({
-            //id: 'CoreCamera'
-            id: 'Main'
+             //id: 'CoreCamera'
+             id: 'Main'
           })
-        }, 2000)
+        }, 1000)
       },
       componentDidMount: function() {
         console.log('THI IS ON')

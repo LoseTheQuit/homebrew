@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
-var createFragment = require('react-addons-create-fragment');
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
@@ -20,7 +19,6 @@ export default class RestList extends Component {
           id: 'Main'
         })
       }
-
     }
   }
   _buttonPress() {
@@ -53,10 +51,6 @@ export default class RestList extends Component {
               if (responseData) {
                 console.log('genRows() responseData: ')
                 console.log(responseData)
-
-                // var finalResult = responseData.filter(res => {
-                //   return createFragment(res)
-                // })
 
                 var finalResult = responseData.map(res => {
                   // return 'Lat: ' + res.lat + ' Long: ' + res.long + '\n'

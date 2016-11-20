@@ -4,24 +4,22 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 
-// var Button = require('react-native-button');
+var Button = require('react-native-button');
 var Slider = require('react-native-slider');
 var loDash = require('lodash');
 import clrs from '../utils/clrs'
 import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
-import NavStuff from './NavStuff';
-import RestView from './RestView';
-import RestList from './RestList';
-
-import VideoRecorder from 'react-native-video-recorder';
+import {NavStuff} from './NavStuff';
+import {RestView} from './RestView';
+import {RestList} from './RestList';
+import {VideoRecorder} from 'react-native-video-recorder';
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
 import CoreCamera from './CoreCamera';
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
-
 export default class Main extends Component {
   static propTypes = {
     // title: PropTypes.string.isRequired,
@@ -94,13 +92,13 @@ export default class Main extends Component {
                     <View style={styles.imageOverlay}>
                         <View style={styles.mainNavContainer}>
 
-                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
-                             <Text style={styles.buttonText}>Back</Text>
-                            </TouchableHighlight>
+                            <Button style={styles.backButton} onPress={this.state._handleBackButton}>
+                                Back
+                            </Button>
 
-                            <TouchableHighlight style={styles.backButton} onPress={this.state._handleRecordVideo}>
-                            <Text style={styles.buttonText}>Record</Text>
-                            </TouchableHighlight>
+                            <Button style={styles.backButton} onPress={this.state._handleRecordVideo}>
+                                Record
+                            </Button>
 
                         </View>
 
@@ -118,18 +116,20 @@ export default class Main extends Component {
 
                             { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
 
-                            <GPS max={this.state.maxDistance}/>
-                             <RestList></RestList>
-                             {/* <RestView></RestView> */}
-                            {/* <Slider onValueChange={(value) => this.setState({
-                              maxDistance: value
-                            })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/> */}
+                            { /*<GPS max={this.state.maxDistance}/>*/ }
 
+                            <Slider onValueChange={(value) => this.setState({
+        maxDistance: value
+      })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/>
 
-                           <View style={styles.mainNavContainer}>
-                                {/* <TouchableHighlight style={styles.backButton} onPress={this.state._handleWatchVideo}>
+                            {/* <RestList></RestList> */}
+
+                            { /* <RestView></RestView> */ }
+
+                            <View style={styles.mainNavContainer}>
+                                <Button style={styles.backButton} onPress={this.state._handleWatchVideo}>
                                     Watch
-                                </TouchableHighlight> */}
+                                </Button>
                             </View>
 
                         </View>
@@ -182,12 +182,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     flex: 1,
-    // color: '#fff',
+    color: '#fff',
     borderLeftWidth: 4,
     borderRightWidth: 4,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#fff',
+    height: 70,
+    borderWidth: 10,
+    borderColor: 'red',
     borderStyle: 'solid'
   // justifyContent: 'center',
   // alignItems: 'center',
@@ -237,3 +237,4 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   }
 });
+;
