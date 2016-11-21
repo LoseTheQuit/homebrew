@@ -83,24 +83,30 @@ export default class Main extends Component {
 
     const {artists} = this.state;
 
-    let pic = {
+    let underarmour_1 = {
       uri: 'http://quietmike.org/wp-content/uploads/2016/07/BlackLivesMatter-1.jpg'
+    }
+
+    let underarmour_2 = {
+      uri: 'http://wallpaperlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
     }
 
     return (
 
       <View style={styles.container}>
-                <Image source={pic} style={styles.backgroundImage}>
+                <Image source={underarmour_2} style={styles.backgroundImage}>
                     <View style={styles.imageOverlay}>
                         <View style={styles.mainNavContainer}>
 
-                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
+
+                               <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
                              <Text style={styles.buttonText}>Back</Text>
                             </TouchableHighlight>
 
                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleRecordVideo}>
                             <Text style={styles.buttonText}>Record</Text>
                             </TouchableHighlight>
+
 
                         </View>
 
@@ -118,8 +124,10 @@ export default class Main extends Component {
 
                             { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
 
-                            <GPS max={this.state.maxDistance}/>
-                             <RestList></RestList>
+                            {/* <GPS max={this.state.maxDistance}/> */}
+                             {/* <RestList></RestList> */}
+
+
                              {/* <RestView></RestView> */}
                             {/* <Slider onValueChange={(value) => this.setState({
                               maxDistance: value
@@ -157,6 +165,9 @@ const styles = StyleSheet.create({
   // padding: 10
   // backgroundColor: '#effffe',
   },
+  buttonText: {
+  fontFamily: 'Roboto'
+  },
   backgroundImage: {
     flex: 28,
     resizeMode: 'cover', // or 'stretch'
@@ -167,9 +178,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: "rgba(0, 107, 148, .75)",
-  // justifyContent: 'center',
-  // alignItems: 'center',
-  // alignSelf: 'stretch',
+    // backgroundColor: "rgba(0, 0, 0, .75)",
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // alignSelf: 'stretch',
   },
   mainNavContainer: {
     flex: 2,
@@ -181,6 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   backButton: {
+
     flex: 1,
     // color: '#fff',
     borderLeftWidth: 4,
