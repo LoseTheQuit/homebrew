@@ -7,11 +7,15 @@ const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
+
+var dataArr = [];
+var dataArrText = "THIS IS A TEST!";
 export default class RestList extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      dataArr: [],
       loaded: false,
       dataSource: ds.cloneWithRows(['a', 'bb', 'ccc']),
       _buttonPress: () => {
@@ -26,21 +30,23 @@ export default class RestList extends Component {
       id: 'Main'
     })
   }
-
   renderRow(text, sId, rId) {
     return (
-      <View>
-        { /* <Text style={styles.restData}>{rId}: {text.long}</Text> */ }
-        <Text style={styles.restData}>{rId}: {text}</Text>
-        { /* <TouchableHighlight style={styles.button} onPress={this.state._buttonPress.bind(this)}>
+      <View style={[styles.restListOverLay, styles.modularBorder, , styles.basePadding]}>
+
+        <Text style={styles.restData}>{rId}:</Text>
+        <Text style={styles.restData}>{text}</Text>
+
+        <TouchableHighlight style={styles.button}>
+            {/* onPress={this.state._buttonPress().bind(this)} */}
             <Text style={styles.restData}>Enter</Text>
-        </TouchableHighlight> */ }
+        </TouchableHighlight>
+
       </View>
     )
   }
 
   genRows() {
-
     (async () => {
       var that = this;
       try {
@@ -49,28 +55,41 @@ export default class RestList extends Component {
             .then((x) => x.json())
             .then((responseData) => {
               if (responseData) {
+
                 console.log('genRows() responseData: ')
                 console.log(responseData)
+
+                this.setState({
+                  dataArr: responseData,
+                });
+
+                var finalResult = JSON.stringify(responseData);
 
                 var finalResult = responseData.map(res => {
                   // return 'Lat: ' + res.lat + ' Long: ' + res.long + '\n'
                   var moJO = (
-                  <Text style={styles.restData}>Lat: {res.lat}</Text>
+                    <Text style={styles.restData}>Lat: {res.lat}</Text>
                   );
-                  return moJO;
-                //  return res
+
+                  dataArr.push({
+                    lat: res.lat
+                  });
+                   return moJO;
+                  // return this.state.dataArr;
+                  // return res
                 })
 
                 console.log('genRows() EDITED: ')
-                console.log(finalResult)
+                //  console.log(finalResult)
 
                 var _ds = JSON.parse(JSON.stringify(finalResult));
                 // clone datasorce, force renderRow update
-                console.log('_ds:')
-                console.log(_ds)
+
+                // console.log('_ds:')
+                // console.log(_ds)
+
                 this.setState({
                   loaded: true,
-                  // dataSource: that.state.dataSource.cloneWithRows(_ds),
                   dataSource: that.state.dataSource.cloneWithRows(finalResult)
                 });
               }
@@ -87,7 +106,8 @@ export default class RestList extends Component {
     this.genRows();
   }
   renderLoadingView() {
-    return (  <View style={styles.loading}>
+    return (
+    <View style={styles.loading}>
       <Text>
         Loading ...
       </Text>
@@ -97,7 +117,17 @@ export default class RestList extends Component {
   renderList() {
     return (
       <View>
-      <ListView dataSource={this.state.dataSource} style={styles.listView} renderRow={this.renderRow} />
+
+      {/*
+        <Text>
+        {this.state.dataArr}
+      </Text> */}
+
+      <Text>
+      {this.dataArrText}
+      </Text>
+
+      <ListView dataSource={this.state.dataSource} style={styles.listViewContainer} renderRow={this.renderRow} />
     </View>
     )
   }
@@ -110,11 +140,24 @@ export default class RestList extends Component {
 }
 
 const styles = StyleSheet.create({
-  listView: {
-    flex: 100,
+  listViewContainer: {
+    flex: 1,
     alignSelf: 'stretch'
   },
   restData: {
-    color: '#ffffff'
+    color: '#fff'
   },
+  modularBorder: {
+    marginBottom: 10,
+    marginTop: 10,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, .75)',
+  },
+  restListOverLay: {
+    backgroundColor: "rgba(0, 0, 0, .5)",
+  },
+  basePadding: {
+    padding: 10
+  }
 })

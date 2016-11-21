@@ -28,31 +28,14 @@ export default class Main extends Component {
     // onForward: PropTypes.func.isRequired,
     // onBack: PropTypes.func.isRequired,
   }
+
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    const data = [
-      'Shark',
-      'Apple',
-      'Math',
-      'Ice Cream',
-      'Roof',
-      'House',
-      'Roof',
-      'House',
-      'Fish',
-      'Chicken',
-      'Burgers',
-      'Music',
-      'Waves',
-      'Coffee'
-    ];
-
     this.state = {
-      artists: dataSource.cloneWithRows(data),
       text: '',
       maxDistance: '',
       _handleBackButton: (event) => {
@@ -95,41 +78,43 @@ export default class Main extends Component {
 
       <View style={styles.container}>
                 <Image source={underarmour_2} style={styles.backgroundImage}>
-                    <View style={styles.imageOverlay}>
+                    <View style={[styles.imageOverlay]}>
+
+                        {/*
                         <View style={styles.mainNavContainer}>
 
-
-                               <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
+                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
                              <Text style={styles.buttonText}>Back</Text>
-                            </TouchableHighlight>
+                             </TouchableHighlight>
 
                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleRecordVideo}>
                             <Text style={styles.buttonText}>Record</Text>
                             </TouchableHighlight>
 
-
                         </View>
+                        */}
 
                         <View style={styles.contentContainer}>
 
                             { /* <TextInput
-          style={styles.textInput}
-          placeholder="Type here to translate!"
-          onChangeText={(text) => this.setState({ text }) }
-          />
+                              style={styles.textInput}
+                              placeholder="Type here to translate!"
+                              onChangeText={(text) => this.setState({ text }) }
+                              />
 
-        <Text style={styles.textInput}>
-          {this.state.text}
-        </Text> */ }
+                            <Text style={styles.textInput}>
+                              {this.state.text}
+                            </Text> */ }
 
                             { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
 
-                            {/* <GPS max={this.state.maxDistance}/> */}
-                             {/* <RestList></RestList> */}
+                             <GPS max={this.state.maxDistance}/>
 
+                             <RestList></RestList>
 
                              {/* <RestView></RestView> */}
-                            {/* <Slider onValueChange={(value) => this.setState({
+
+                             {/* <Slider onValueChange={(value) => this.setState({
                               maxDistance: value
                             })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/> */}
 
@@ -144,7 +129,6 @@ export default class Main extends Component {
                     </View>
                 </Image>
             </View>
-
     )
   }
 }
@@ -156,6 +140,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#effffe'
+  },
+  basePadding: {
+    padding: 10
   },
   contentContainer: {
     flex: 2,
@@ -176,12 +163,7 @@ const styles = StyleSheet.create({
   },
   imageOverlay: {
     flex: 1,
-    padding: 10,
     backgroundColor: "rgba(0, 107, 148, .75)",
-    // backgroundColor: "rgba(0, 0, 0, .75)",
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignSelf: 'stretch',
   },
   mainNavContainer: {
     flex: 2,
@@ -193,7 +175,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   backButton: {
-
     flex: 1,
     // color: '#fff',
     borderLeftWidth: 4,

@@ -215,13 +215,14 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
       <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.state.incomingLatitudeREST, this.state.incomingLongitudeREST, this.state.latitude, this.state.longitude),
       this.state.incomingLatitude = this.props.lat,
-      this.state.incomingLongitude = this.props.long}>
+      this.state.incomingLongitude = this.props.long} style={[styles.baseGPSStyle]}>
 
                 <Text>
                     <Text style={styles.leSpacer}></Text>
                 </Text>
 
-                <Text>
+                {/*
+                  <Text>
                     <Text style={styles.title}>Incoming longitude:
                     </Text>
                     <Text style={styles.gpsData}>{this.state.incomingLongitudeREST}</Text>
@@ -232,11 +233,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
                     </Text>
                     <Text style={styles.gpsData}>{this.state.incomingLatitudeREST}</Text>
                 </Text>
-
-                { /* <Text>
-        <Text style={styles.title}>Incoming Slider latitude: </Text>
-        <Text>{this.state.incomingLatitude}</Text>
-      </Text> */ }
+                */}
 
                 <Text>
                     <Text style={styles.leSpacer}></Text>
@@ -268,22 +265,6 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
                     <Text style={styles.gpsData}>{this.state.totalDistance}</Text>
                 </Text>
 
-                { /* <Text>
-            <Text style={styles.title}>dataFromServer: </Text>
-            <Text style={styles.gpsData}>
-            {this.state.dataFromServer}
-            </Text>
-        </Text> */ }
-
-                { /* <TextInput
-            ref={function(input) {
-              if (input  === '123') {
-                // input.focus();
-                alert("All done!")
-              }
-            }} />
-            */ }
-
                 <Text>
                     <Text style={styles.leSpacer}></Text>
                     <Text style={styles.leSpacer}></Text>
@@ -300,7 +281,6 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
                 <Text>
                     <Text style={styles.title}>{this.state.proximityMine()}</Text>
-                    { /* <Text style={styles.gpsData}>{this.state.latitude}</Text> */ }
                 </Text>
 
             </View>
@@ -319,6 +299,12 @@ var styles = StyleSheet.create({
   },
   leSpacer: {
     height: 25
+  },
+  baseGPSStyle: {
+    padding: 10,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255, .75)',
   }
 });
 

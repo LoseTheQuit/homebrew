@@ -34,11 +34,9 @@ const RestView = React.createClass({
     )
   },
   getInitialState() {
-
     return {
-      restData: dataSource.cloneWithRows([])
-    // restData: this.genRows()
-    };
+      restData: dataSource.cloneWithRows(['Loading...'])
+     };
   },
   genRows: () => {
      (async () => {
@@ -51,9 +49,7 @@ const RestView = React.createClass({
                 console.log('genRows() responseData: ')
                 console.log(responseData)
               }
-
             })
-
             .done();
         //////
         this.setState({
@@ -66,13 +62,12 @@ const RestView = React.createClass({
       }
     })();
 
-    // return genRowsData
-
   },
   componentDidMount: function() {
     this.genRows()
+
     this.setState({
-      restData: dataSource.cloneWithRows(['EMPTY']),
+      restData: dataSource.cloneWithRows(['Loading Rest Data...']),
     });
 
     this.getSomeRest().then((data) => {
@@ -82,9 +77,10 @@ const RestView = React.createClass({
       this.setState({
         dataFromServer
       })
-    })
+    });
   },
   render() {
+
     const {restData} = this.state;
 
     return (
@@ -94,10 +90,9 @@ const RestView = React.createClass({
        {this.state.dataFromServer}
       </Text>
 
-      <ListView dataSource={restData} style={styles.listView} renderRow={this.renderRow} />
-      { /* enableEmptySections={true} */ }
-      </View>
+      {/* <ListView dataSource={restData} style={styles.listView} renderRow={this.renderRow} /> */}
 
+      </View>
       );
   }
 });
