@@ -2,9 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
+import {StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 
-// var Button = require('react-native-button');
 var Slider = require('react-native-slider');
 var loDash = require('lodash');
 import clrs from '../utils/clrs'
@@ -13,6 +12,7 @@ import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 import NavStuff from './NavStuff';
 import RestView from './RestView';
+import CardList from './CardList';
 import RestList from './RestList';
 
 import VideoRecorder from 'react-native-video-recorder';
@@ -31,9 +31,6 @@ export default class Main extends Component {
 
   constructor(props) {
     super(props);
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
 
     this.state = {
       text: '',
@@ -83,9 +80,9 @@ export default class Main extends Component {
                         {/*
                         <View style={styles.mainNavContainer}>
 
-                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
-                             <Text style={styles.buttonText}>Back</Text>
-                             </TouchableHighlight>
+                           <TouchableHighlight style={styles.backButton} onPress={this.state._handleBackButton}>
+                           <Text style={styles.buttonText}>Back</Text>
+                           </TouchableHighlight>
 
                             <TouchableHighlight style={styles.backButton} onPress={this.state._handleRecordVideo}>
                             <Text style={styles.buttonText}>Record</Text>
@@ -96,7 +93,8 @@ export default class Main extends Component {
 
                         <View style={styles.contentContainer}>
 
-                            { /* <TextInput
+                            { /*
+                              <TextInput
                               style={styles.textInput}
                               placeholder="Type here to translate!"
                               onChangeText={(text) => this.setState({ text }) }
@@ -104,13 +102,18 @@ export default class Main extends Component {
 
                             <Text style={styles.textInput}>
                               {this.state.text}
-                            </Text> */ }
+                            </Text>
+                            */ }
 
-                            { /* <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar> */ }
+                            { /*
+                              <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar>
+                            */ }
 
                              <GPS max={this.state.maxDistance}/>
 
-                             <RestList></RestList>
+                             {/* this is the one to use */}
+                             <CardList></CardList>
+                             {/* this is the one to use */}
 
                              {/* <RestView></RestView> */}
 

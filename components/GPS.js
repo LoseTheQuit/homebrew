@@ -209,6 +209,9 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
   render() {
     debugger;
     var display = 'THIS IS A ANOTHER TEST'
+    var circular_bg_pic = {
+      uri:'https://flonoware.herokuapp.com/img/location.jpg'
+    }
     const {totalDistance} = this.state;
 
     return (
@@ -216,10 +219,6 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
       <View onChangeText={this.state.totalDistance = GPS.calcCrow(this.state.incomingLatitudeREST, this.state.incomingLongitudeREST, this.state.latitude, this.state.longitude),
       this.state.incomingLatitude = this.props.lat,
       this.state.incomingLongitude = this.props.long} style={[styles.baseGPSStyle]}>
-
-                <Text>
-                    <Text style={styles.leSpacer}></Text>
-                </Text>
 
                 {/*
                   <Text>
@@ -235,15 +234,58 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
                 </Text>
                 */}
 
-                <Text>
-                    <Text style={styles.leSpacer}></Text>
-                </Text>
+            {/* GOT SAVED */}
+            {/* GOT SAVED */}
+            {/* GOT SAVED */}
 
-                <Text>
-                    <Text style={styles.title}>Current longitude:
-                    </Text>
+            <View style={styles.headerContainer}>
+
+                <View style={styles.headerContentLeft}>
+                   <View style={styles.circle}>
+                    <Image source={circular_bg_pic} style={styles.circle}></Image>
+                    </View>
+                 </View>
+
+               {/* <View style={{width: 50, height: 50,
+                 backgroundColor: 'skyblue'}} /> */}
+
+               <View style={styles.headerContentRight}>
+                  <Text style={styles.title}>Current : </Text>
+                  <View style={styles.gpsDataContainer}>
+                    <Text style={styles.gpsData}>{ Number(this.state.longitude).toFixed(2)}</Text>
+                    <Text style={styles.gpsDataHandleBar}>|</Text>
+                    <Text style={styles.gpsData}>{   Number(this.state.latitude).toFixed(2)}</Text>
+                  </View>
+                  <View style={styles.gpsDataContainer}>
+                  <Text style={styles.title}>longitude</Text>
+                    <Text style={styles.invincibleHandleBar}></Text>
+                  <Text style={styles.title}>latitude</Text>
+
+                  </View>
+                  {/* <Text style={styles.title}>Current latitude: </Text> */}
+                  {/* <Text style={styles.gpsData}>{this.state.latitude}</Text> */}
+               </View>
+
+            </View>
+
+            {/*
+            <View style={styles.contentContainer}>
+               <View style={styles.contentLeft}/>
+
+               <View style={styles.contentRight}/>
+            </View>
+            */}
+
+            {/* GOT SAVED */}
+            {/* GOT SAVED */}
+            {/* GOT SAVED */}
+
+
+                {/*
+                  <Text>
+                    <Text style={styles.title}>Current longitude: </Text>
                     <Text style={styles.gpsData}>{this.state.longitude}</Text>
-                </Text>
+                  </Text>
 
                 <Text>
                     <Text style={styles.title}>Current latitude:
@@ -281,7 +323,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
                 <Text>
                     <Text style={styles.title}>{this.state.proximityMine()}</Text>
-                </Text>
+                </Text> */}
 
             </View>
     )
@@ -289,12 +331,75 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 });
 
 var styles = StyleSheet.create({
-  title: {
-    fontWeight: '500',
-    color: '#fff'
+  headerContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 100/2,
+ },
+  circlular_pic_overlay: {
+    backgroundColor: "rgba(0, 107, 148, .75)"
+ },
+  contentContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContent: {
+    flex: .5,
+  },
+  headerContentLeft: {
+    flex: .40,
+    height: 150,
+    // backgroundColor: 'powderblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContentRight: {
+    flex: .60,
+    height: 150,
+    // backgroundColor: 'steelblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentLeft: {
+    flex: .5,
+    height: 150,
+    backgroundColor: 'powderblue',
+
+  },
+  contentRight: {
+    flex: .5,
+    height: 150,
+    backgroundColor: 'steelblue'
+  },
+  gpsDataContainer: {
+   flexDirection: 'row',
   },
   gpsData: {
     fontWeight: '300',
+    fontSize: 32,
+    color: '#fff'
+  },
+  gpsDataHandleBar: {
+    fontWeight: '300',
+    fontSize: 32,
+    color: '#fff',
+    marginRight: 10,
+    marginLeft: 10
+  },
+  invincibleHandleBar: {
+    marginRight: 10,
+    marginLeft: 10
+  },
+  title: {
+    fontWeight: '500',
     color: '#fff'
   },
   leSpacer: {

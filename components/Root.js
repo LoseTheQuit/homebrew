@@ -27,7 +27,6 @@ export default class Root extends Component {
       initialRoute={{
         // title: 'homebrew',
         id: 'Cricket',
-        // id: 'Main',
         index: 0
       }}
 
@@ -36,6 +35,7 @@ export default class Root extends Component {
       renderScene = {
       this.navigatorRenderScene
       }
+
       />
     )
   }
@@ -55,7 +55,6 @@ export default class Root extends Component {
       case 'CoreCamera':
         return (<CoreCamera navigator={navigator} title="CoreCamera"/>)
       default:
-
     }
   }
 }
@@ -82,7 +81,7 @@ export default class Root extends Component {
 // />
 
 
-/*  <Main/>
+/* <Main/>
 /* <BadInstagramCloneApp /> */
 
 /////////////////////////////////////////////////
