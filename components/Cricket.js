@@ -25,7 +25,8 @@ export default class Cricket extends Component {
 
       _buttonPress: () => {
         this.props.navigator.push({
-          id: 'Main'
+          // id: 'Main'
+          id: 'CoreCamera'
         })
       },
       channelChanger: () => {
@@ -38,7 +39,7 @@ export default class Cricket extends Component {
         }, 1000)
       },
       componentDidMount: function() {
-        console.log('THI IS ON')
+        console.log('THIS IS ON')
       }
     }
   }
@@ -48,16 +49,16 @@ export default class Cricket extends Component {
     return (
       <View style={styles.container}>
 
-                <Text style={styles.largeText}>homebrew:
-                </Text>
-                <Text style={styles.largeText}>alpha v0.0.016</Text>
-                <Text style={styles.infoText}></Text>
+        <Text style={styles.largeText}>homebrew:
+        </Text>
+        <Text style={styles.largeText}>alpha v0.0.016</Text>
+        <Text style={styles.infoText}></Text>
 
-                <TouchableHighlight style={styles.button} onPress={this.state._buttonPress} ref={this.state.channelChanger}>
-                    <Text style={styles.buttonText}>Enter</Text>
-                </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this.state._buttonPress} ref={this.state.channelChanger}>
+            <Text style={styles.buttonText}>Enter</Text>
+        </TouchableHighlight>
 
-            </View>
+      </View>
 
     )
   }

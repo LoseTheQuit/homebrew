@@ -48,6 +48,26 @@ const RestView = React.createClass({
               if (responseData) {
                 console.log('genRows() responseData: ')
                 console.log(responseData)
+                return responseData.map(function(news, i){
+                  return(
+                    <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
+                    <View style={styles.cardContentLeft}>
+                    </View>
+                    <View style={styles.cardContentRight}>
+
+                    <Text>{i}</Text>
+                    <Text style={styles.restData}>{Number(news.lat).toFixed(2)}</Text>
+                         <Text style={styles.restData}>{Number(news.long).toFixed(2)}</Text>
+                        <TouchableHighlight style={styles.button}>
+                        {/* onPress={ _buttonPress().bind(this)} */}
+                        {/* onPress={this.state._buttonPress()} */}
+                            <Text style={styles.restData}>View</Text>
+                        </TouchableHighlight>
+                      </View>
+
+                    </View>
+                  );
+                });
               }
             })
             .done();
@@ -74,9 +94,7 @@ const RestView = React.createClass({
       console.log('getSomeRest() data: ')
       console.log(data)
       var dataFromServer = JSON.stringify(data);
-      this.setState({
-        dataFromServer
-      })
+
     });
   },
   render() {
@@ -94,6 +112,7 @@ const RestView = React.createClass({
 
       </View>
       );
+
   }
 });
 

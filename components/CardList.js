@@ -1,38 +1,28 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
-import { ListView, TouchableHighlight, Navigator, StyleSheet, View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
+
+const ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2
+});
 
 export default class RestList extends Component {
 
   constructor(props) {
     super(props);
+      this._buttonPress = this._buttonPress.bind(this);
+      // this.onPress = this.onPress.bind(this);
      this.state = {
+      dataSource: ds.cloneWithRows(['a', 'bb', 'ccc']),
       dataArr: [],
       loaded: false,
-       _buttonPress: () => {
+       _buttonPress:  function() {
         this.props.navigator.push({
           id: 'Main'
         })
       }
     }
-  }
-
-  _buttonPress() {
-    this.props.navigator.push({
-      id: 'Main'
-    })
-  }
-
-  renderRow(text, sId, rId) {
-    return (
-      <View style={[styles.restListOverLay, styles.modularBorder, , styles.basePadding]}>
-
-        <Text style={styles.restData}>{rId}:</Text>
-        <Text style={styles.restData}>{text}</Text>
-
-      </View>
-    )
   }
 
   genRows() {
@@ -57,8 +47,10 @@ export default class RestList extends Component {
             })
             .done();
       } catch (err) {
-        console.log("ERROR: ")
-        console.log(null, err)
+
+        console.log("ERROR: ");
+        console.log(null, err);
+
       }
     })();
   }
@@ -77,26 +69,39 @@ export default class RestList extends Component {
     )
   }
 
+  _buttonPress = () =>  {
+    this.props.navigator.push({
+      id: 'Main'
+    })
+  }
+
 renderGPSDataFromServer() {
+
   const {loaded} = this.state;
-  const {_buttonPress} = this.state;
+  const {state} = this.state;
   // const {props} = this.props.bind(this);
 
-  return this.state.dataArr.map(function(news, i){
+  return this.state.dataArr.map(function(data, i){
     return(
       <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
-      <View style={styles.cardContentLeft}>
-      </View>
-      <View style={styles.cardContentRight}>
 
-      <Text>{i}</Text>
-      <Text style={styles.restData}>{news.lat}</Text>
-           <Text style={styles.restData}>{news.long}</Text>
-          <TouchableHighlight style={styles.button} onPress={ _buttonPress.bind(this)}>
+        <View style={styles.cardContentLeft}>
+          <TouchableHighlight style={styles.button}
+          >
+          {/* onPress={this._buttonPress().bind(this)} */}
           {/* onPress={ _buttonPress().bind(this)} */}
-          {/* onPress={this.state._buttonPress()} */}
-              <Text style={styles.restData}>Enter</Text>
+          {/* onPress={ _buttonPress().bind(this)} */}
+          {/* onPress={this.state._buttonPress()}  */}
+          <Text style={styles.restData}>View Video</Text>
           </TouchableHighlight>
+        </View>
+
+        <View style={styles.cardContentRight}>
+          <Text style={styles.restData}>{i}</Text>
+          <View style={styles.gpsDataContainer}>
+            <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
+            <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
+          </View>
         </View>
 
       </View>
@@ -129,14 +134,14 @@ const styles = StyleSheet.create({
   cardContentLeft: {
     flex: .40,
     height: 150,
-    backgroundColor: 'powderblue',
+    // backgroundColor: 'powderblue',
     justifyContent: 'center',
     alignItems: 'center',
   },
   cardContentRight: {
     flex: .60,
     height: 150,
-    backgroundColor: 'steelblue',
+    // backgroundColor: 'steelblue',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -150,5 +155,21 @@ const styles = StyleSheet.create({
   },
   basePadding: {
     padding: 10
-  }
+  },
+  button: {
+    marginTop: 30,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, .75)',
+  },
+  gpsDataContainer: {
+   flexDirection: 'row',
+  },
+   gpsData: {
+     fontWeight: '300',
+     fontSize: 24,
+     color: '#fff'
+   },
 })

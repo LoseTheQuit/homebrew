@@ -37,22 +37,19 @@ export default class Main extends Component {
       maxDistance: '',
       _handleBackButton: (event) => {
         console.log(Object.keys(event));
-        // alert("Back button pressed")
-        this.props.navigator.push({
+         this.props.navigator.push({
           id: 'Cricket'
         })
       },
       _handleRecordVideo: (event) => {
         console.log(Object.keys(event));
-        // alert("Back button pressed")
-        this.props.navigator.push({
+         this.props.navigator.push({
           id: 'CoreCamera'
         })
       },
       _handleWatchVideo: (event) => {
         console.log(Object.keys(event));
-        // alert("Back button pressed")
-        this.props.navigator.push({
+         this.props.navigator.push({
           id: 'VideoPlayer'
         })
       }
