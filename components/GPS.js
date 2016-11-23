@@ -46,8 +46,8 @@ const GPS = React.createClass({
       })
 
       let gpsPOSTJSON = await postIT.json()
-      console.log('gpsPOSTJSON: ')
-      console.log(gpsPOSTJSON)
+      // console.log('gpsPOSTJSON: ')
+      // console.log(gpsPOSTJSON)
 
     } catch (e) {
       console.log("ERROR: ")
@@ -59,8 +59,8 @@ const GPS = React.createClass({
     try {
       let response = await fetch('https://flonoware.herokuapp.com/outermost')
       let json = await response.json()
-      console.log('getData()')
-      console.log(json)
+      //console.log('getData()')
+      //console.log(json)
       debugger;
       return json
     } catch (err) {
@@ -208,7 +208,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
 
   render() {
     debugger;
-    var display = 'THIS IS A ANOTHER TEST'
+
     var circular_bg_pic = {
       uri:'https://flonoware.herokuapp.com/img/location.jpg'
     }

@@ -12,6 +12,8 @@ export default class RestList extends Component {
   constructor(props) {
     super(props);
       this._buttonPress = this._buttonPress.bind(this);
+      this.calcCrowV1 = this.calcCrowV1.bind(this);
+      this.calcCrowV2 =this.calcCrowV2.bind(this);
       // this.onPress = this.onPress.bind(this);
      this.state = {
       dataSource: ds.cloneWithRows(['a', 'bb', 'ccc']),
@@ -40,8 +42,8 @@ export default class RestList extends Component {
                   dataArr: responseData
                 });
 
-                console.log('genRows() LOADED! ')
-                console.log(responseData)
+                // console.log('genRows() LOADED! ')
+                // console.log(responseData)
 
               }
             })
@@ -75,6 +77,55 @@ export default class RestList extends Component {
     })
   }
 
+  calcCrowV1 =  (incomingLat1, incomingLon1, currentLat2, currentLon2)  =>  {
+
+      // km
+      var R = 6371;
+      var toRad = Math.PI / 180;
+      var dLat = (currentLat2 - incomingLat1) * toRad;
+      var dLon = (currentLon2 - incomingLon1) * toRad;
+      var incomingLat1 = (incomingLat1) * toRad;
+      var currentLat2 = (currentLat2) * toRad;
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      return d;
+
+  }
+
+  calcCrowV2 =  (incomingLat1, incomingLon1)  =>  {
+
+      return "HELLO!";
+
+      var currentLat2 = 33.636364;
+      var currentLon2 = -84.80987689;
+
+      // km
+      var R = 6371;
+      var toRad = Math.PI / 180;
+      var dLat = (currentLat2 - incomingLat1) * toRad;
+      var dLon = (currentLon2 - incomingLon1) * toRad;
+      var incomingLat1 = (incomingLat1) * toRad;
+      var currentLat2 = (currentLat2) * toRad;
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+
+      console.log("D:")
+      console.log("D:")
+      console.log("D:")
+      console.log("D:")
+      console.log("D:")
+      console.log(d)
+      console.log(d)
+      console.log(d)
+      console.log(d)
+      console.log(d)
+
+      return d;
+
+  }
+
 renderGPSDataFromServer() {
 
   const {loaded} = this.state;
@@ -87,7 +138,8 @@ renderGPSDataFromServer() {
 
         <View style={styles.cardContentLeft}>
           <TouchableHighlight style={styles.button}
-          >
+         onPress={() => this._buttonPress()}   >
+
           {/* onPress={this._buttonPress().bind(this)} */}
           {/* onPress={ _buttonPress().bind(this)} */}
           {/* onPress={ _buttonPress().bind(this)} */}
@@ -100,8 +152,13 @@ renderGPSDataFromServer() {
           <Text style={styles.restData}>{i}</Text>
           <View style={styles.gpsDataContainer}>
             <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
+            <Text style={styles.gpsDataHandleBar}>|</Text>
             <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
           </View>
+
+          <Text>{() => this.calcCrowV2(55, 55)}
+          </Text>
+
         </View>
 
       </View>
@@ -171,5 +228,12 @@ const styles = StyleSheet.create({
      fontWeight: '300',
      fontSize: 24,
      color: '#fff'
+   },
+   gpsDataHandleBar: {
+     fontWeight: '300',
+     fontSize: 24,
+     color: '#fff',
+     marginRight: 10,
+     marginLeft: 10
    },
 })
