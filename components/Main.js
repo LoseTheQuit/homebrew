@@ -65,7 +65,7 @@ export default class Main extends Component {
     }
 
     let underarmour_2 = {
-      uri: 'http://wallpaperlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
+      uri: 'http://wallpap`erlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
     }
 
     return (

@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
+import { Alert, ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
@@ -77,7 +77,9 @@ export default class RestList extends Component {
     })
   }
 
-  calcCrowV1 =  (incomingLat1, incomingLon1, currentLat2, currentLon2)  =>  {
+  calcCrowV1 (incomingLat1, incomingLon1, currentLat2, currentLon2) {
+
+
 
       // km
       var R = 6371;
@@ -93,8 +95,8 @@ export default class RestList extends Component {
 
   }
 
-  calcCrowV2 =  (incomingLat1, incomingLon1)  =>  {
-
+  calcCrowV2 (incomingLat1, incomingLon1) {
+      console.log("THIS IS A TEST")
       return "HELLO!";
 
       var currentLat2 = 33.636364;
@@ -131,7 +133,6 @@ renderGPSDataFromServer() {
   const {loaded} = this.state;
   const {state} = this.state;
   // const {props} = this.props.bind(this);
-
   return this.state.dataArr.map(function(data, i){
     return(
       <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
@@ -156,8 +157,8 @@ renderGPSDataFromServer() {
             <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
           </View>
 
-          <Text>{() => this.calcCrowV2(55, 55)}
-          </Text>
+          {/* <Text>{() => this.calcCrowV2(55, 55)}
+          </Text> */}
 
         </View>
 

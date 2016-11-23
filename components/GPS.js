@@ -195,7 +195,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
         totalDistance
       });
 
-    }, (error) => console.log(error.message + " LOAD SAMPLE GPS DATA"), {
+    }, (error) => console.log(error.message + " LOAD SAMPLE GPS DATA ERROR"), {
       enableHighAccuracy: true,
       timeout: 20000,
       maximumAge: 1000
