@@ -56,7 +56,7 @@ export default class RestList extends Component {
   }
 
   componentWillMount() {
-    this.genRows();
+    this.genRows()       ;
   }
 
   renderLoadingView() {
@@ -74,7 +74,21 @@ export default class RestList extends Component {
       id: 'Main'
     })
   }
+  calcCrow = (incomingLat1, incomingLon1, currentLat2, currentLon2) => {
 
+    // km
+    var R = 6371;
+    var toRad = Math.PI / 180;
+    var dLat = (currentLat2 - incomingLat1) * toRad;
+    var dLon = (currentLon2 - incomingLon1) * toRad;
+    var incomingLat1 = (incomingLat1) * toRad;
+    var currentLat2 = (currentLat2) * toRad;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+
+  }
 renderGPSDataFromServer() {
 
   const {loaded} = this.state;
@@ -102,6 +116,9 @@ renderGPSDataFromServer() {
             <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
             <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
           </View>
+          <Text>
+          {() => this.calcCrow()}
+          </Text>
         </View>
 
       </View>

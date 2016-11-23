@@ -107,11 +107,11 @@ export default class Main extends Component {
                             */ }
 
                              <GPS max={this.state.maxDistance}/>
-
+<ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
                              {/* this is the one to use */}
                              <CardList></CardList>
                              {/* this is the one to use */}
-
+  </ScrollView>
                              {/* <RestView></RestView> */}
 
                              {/* <Slider onValueChange={(value) => this.setState({
@@ -119,13 +119,14 @@ export default class Main extends Component {
                             })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/> */}
 
 
-                           <View style={styles.mainNavContainer}>
+                           {/* <View style={styles.mainNavContainer}> */}
                                 {/* <TouchableHighlight style={styles.backButton} onPress={this.state._handleWatchVideo}>
                                     Watch
                                 </TouchableHighlight> */}
-                            </View>
+                            {/* </View> */}
 
                         </View>
+
                     </View>
                 </Image>
             </View>
@@ -141,11 +142,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#effffe'
   },
+  backgroundImage: {
+    flex: 10,
+    resizeMode: 'cover', // or 'stretch'
+    width: width,
+    height: height
+  },
+  imageOverlay: {
+    flex: 10,
+    backgroundColor: "rgba(0, 107, 148, .75)",
+  },
   basePadding: {
     padding: 10
   },
+  ScrollViewStyle: {
+    padding: 10
+  },
   contentContainer: {
-    flex: 2,
+    flex: 8,
     justifyContent: 'flex-start',
   // alignItems: 'flex-start',
   // flexDirection: 'column',
@@ -155,16 +169,8 @@ const styles = StyleSheet.create({
   buttonText: {
   fontFamily: 'Roboto'
   },
-  backgroundImage: {
-    flex: 28,
-    resizeMode: 'cover', // or 'stretch'
-    width: width,
-    height: height
-  },
-  imageOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 107, 148, .75)",
-  },
+
+
   mainNavContainer: {
     flex: 2,
     flexDirection: "row",
