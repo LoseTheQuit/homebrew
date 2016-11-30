@@ -40,21 +40,22 @@ export default class Cricket extends Component {
            id: 'Main'
           //  id: 'Terminal'
         })
-      }, 1000);
+      }, 5000);
     })();
   }
 
    render() {
 
     return (
-        <View style={styles.container}>
-        {/* <View>
+       <View style={styles.container}>
+        <View style={styles.topContainer}>
           <ToolbarAndroid
           title="Toolbar"
           style={styles.toolbar} />
-        </View> */}
+        </View>
+        <View>
 
-        <Text style={styles.largeText}>homebrew:
+        <Text style={styles.bottomContainer}>homebrew:
         </Text>
         <Text style={styles.largeText}>alpha v0.0.016</Text>
         <Text style={styles.infoText}></Text>
@@ -65,6 +66,7 @@ export default class Cricket extends Component {
 
 
       </View>
+      </View>
 
     )
   }
@@ -72,21 +74,20 @@ export default class Cricket extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 10,
     padding: 10,
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: "#00a3e0"
   },
-    topContainer: {
+  topContainer: {
     flex: 1,
-
-    // justifyContent: 'center',
+     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: "#00a3e0"
   },
   bottomContainer: {
-    flex: 1,
+    flex: 9,
     padding: 10,
     // justifyContent: 'center',
     // alignItems: 'center',
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 2
   },
   button: {
-    flex: 1,
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'stretch',
