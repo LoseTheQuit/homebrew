@@ -1,28 +1,25 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Alert, ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
+import { ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-export default class RestList extends Component {
+export default class RestList extends Component{
 
   constructor(props) {
     super(props);
-      this._buttonPress = this._buttonPress.bind(this);
-      this.calcCrowV1 = this.calcCrowV1.bind(this);
-      this.calcCrowV2 =this.calcCrowV2.bind(this);
-      // this.onPress = this.onPress.bind(this);
-     this.state = {
+      this.state = {
       dataSource: ds.cloneWithRows(['a', 'bb', 'ccc']),
       dataArr: [],
       loaded: false,
-       _buttonPress:  function() {
-        this.props.navigator.push({
-          id: 'Main'
-        })
+       _buttonPress:   () => {
+         console.log("THIS IS ANOTHER TEST!")
+        // this.props.navigator.push({
+        //   id: 'Main'
+        // })
       }
     }
   }
@@ -42,8 +39,8 @@ export default class RestList extends Component {
                   dataArr: responseData
                 });
 
-                // console.log('genRows() LOADED! ')
-                // console.log(responseData)
+                console.log('genRows() LOADED! ')
+                console.log(responseData)
 
               }
             })
@@ -58,7 +55,33 @@ export default class RestList extends Component {
   }
 
   componentWillMount() {
+    navigator.geolocation.clearWatch(this.watchID);
     this.genRows();
+  }
+
+  calcRow(incomingLat1, incomingLon1) {
+
+    var currentLat2 = -84;
+    var  currentLon2= 55;
+        // km
+    var R = 6371;
+    var toRad = Math.PI / 180;
+    var dLat = (currentLat2 - incomingLat1) * toRad;
+    var dLon = (currentLon2 - incomingLon1) * toRad;
+    var incomingLat1 = (incomingLat1) * toRad;
+    var currentLat2 = (currentLat2) * toRad;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    if (d >= 1) {
+      return (d).toFixed(2) + " miles away";
+
+    } else {
+      return (d).toFixed(2) + " mile away";
+
+    }
+
   }
 
   renderLoadingView() {
@@ -67,116 +90,64 @@ export default class RestList extends Component {
       <Text style={styles.restData}>
         Loading ...
       </Text>
-	  </View>
+    </View>
     )
   }
 
-  _buttonPress = () =>  {
-    this.props.navigator.push({
-      id: 'Main'
-    })
+  _buttonPress = (event) =>  {
+    console.log(" IS THIS IS ANOTHER TEST!????????")
+
+      // this.props.navigator.push({
+      //   id: 'Main'
+      // })
   }
 
-  calcCrowV1 (incomingLat1, incomingLon1, currentLat2, currentLon2) {
+  renderGPSDataFromServer =() => {
 
+    const {loaded} = this.state;
+    const {state} = this.state;
 
+    return this.state.dataArr.map( (data, i) => {
+      return(
+        <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
 
-      // km
-      var R = 6371;
-      var toRad = Math.PI / 180;
-      var dLat = (currentLat2 - incomingLat1) * toRad;
-      var dLon = (currentLon2 - incomingLon1) * toRad;
-      var incomingLat1 = (incomingLat1) * toRad;
-      var currentLat2 = (currentLat2) * toRad;
-      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c;
-      return d;
+          <View style={styles.cardContentLeft}>
+            <TouchableHighlight style={styles.button}
+            onPress={this._buttonPress()}>
+              <Text style={styles.restData}>View Video</Text>
+            </TouchableHighlight>
 
-  }
-
-  calcCrowV2 (incomingLat1, incomingLon1) {
-      console.log("THIS IS A TEST")
-      return "HELLO!";
-
-      var currentLat2 = 33.636364;
-      var currentLon2 = -84.80987689;
-
-      // km
-      var R = 6371;
-      var toRad = Math.PI / 180;
-      var dLat = (currentLat2 - incomingLat1) * toRad;
-      var dLon = (currentLon2 - incomingLon1) * toRad;
-      var incomingLat1 = (incomingLat1) * toRad;
-      var currentLat2 = (currentLat2) * toRad;
-      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(incomingLat1) * Math.cos(currentLat2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c;
-
-      console.log("D:")
-      console.log("D:")
-      console.log("D:")
-      console.log("D:")
-      console.log("D:")
-      console.log(d)
-      console.log(d)
-      console.log(d)
-      console.log(d)
-      console.log(d)
-
-      return d;
-
-  }
-
-renderGPSDataFromServer() {
-
-  const {loaded} = this.state;
-  const {state} = this.state;
-  // const {props} = this.props.bind(this);
-  return this.state.dataArr.map(function(data, i){
-    return(
-      <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
-
-        <View style={styles.cardContentLeft}>
-          <TouchableHighlight style={styles.button}
-         onPress={() => this._buttonPress()}   >
-
-          {/* onPress={this._buttonPress().bind(this)} */}
-          {/* onPress={ _buttonPress().bind(this)} */}
-          {/* onPress={ _buttonPress().bind(this)} */}
-          {/* onPress={this.state._buttonPress()}  */}
-          <Text style={styles.restData}>View Video</Text>
-          </TouchableHighlight>
-        </View>
-
-        <View style={styles.cardContentRight}>
-          <Text style={styles.restData}>{i}</Text>
-          <View style={styles.gpsDataContainer}>
-            <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
-            <Text style={styles.gpsDataHandleBar}>|</Text>
-            <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
           </View>
 
-          {/* <Text>{() => this.calcCrowV2(55, 55)}
-          </Text> */}
+          <View style={styles.cardContentRight}>
+
+            <View style={styles.gpsDataContainer}>
+              <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
+              <Text style={styles.gpsDataHandleBar}>|</Text>
+              <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
+            </View>
+
+            <Text  style={styles.gpsData}>
+              {this.calcRow(data.lat, data.long)}
+            </Text>
+
+          </View>
 
         </View>
-
-      </View>
-    );
-  });
-}
-
-render() {
-  if (!this.state.loaded) {
-    return this.renderLoadingView();
+      );
+    });
   }
-  return(
-    <View>
-      {this.renderGPSDataFromServer()}
-    </View>
-  )
-}}
+
+  render = ()=> {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+    return(
+      <View>
+        {this.renderGPSDataFromServer()}
+      </View>
+    )
+  }};
 
 const styles = StyleSheet.create({
   listViewContainer: {

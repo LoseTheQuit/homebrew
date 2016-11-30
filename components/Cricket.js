@@ -8,8 +8,9 @@ import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image, Touchabl
 import TimerMixin from 'react-timer-mixin';
 import clrs from '../utils/clrs';
 import { fetcher } from '../utils/fetcher';
-import VideoRecorder from 'react-native-video-recorder';
+
 var Button = require('react-native-button');
+var ToolbarAndroid = require('ToolbarAndroid');
 
 export default class Cricket extends Component {
   static propTypes = {
@@ -29,34 +30,39 @@ export default class Cricket extends Component {
           id: 'CoreCamera'
         })
       },
-      channelChanger: () => {
-        console.log("testRun: 1 second has passed")
-        setTimeout(() => {
-          this.props.navigator.push({
-             //id: 'CoreCamera'
-             id: 'Main'
-          })
-        }, 1000)
-      },
       componentDidMount: function() {
         console.log('THIS IS ON')
       }
-    }
+    },
+    (() => {
+      setTimeout(() => {
+        this.props.navigator.push({
+           id: 'Main'
+          //  id: 'Terminal'
+        })
+      }, 1000);
+    })();
   }
 
-  render() {
+   render() {
 
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
+        {/* <View>
+          <ToolbarAndroid
+          title="Toolbar"
+          style={styles.toolbar} />
+        </View> */}
 
         <Text style={styles.largeText}>homebrew:
         </Text>
         <Text style={styles.largeText}>alpha v0.0.016</Text>
         <Text style={styles.infoText}></Text>
 
-        <TouchableHighlight style={styles.button} onPress={this.state._buttonPress} ref={this.state.channelChanger}>
+        <TouchableHighlight style={styles.button}       onPress={this.state._buttonPress}>
             <Text style={styles.buttonText}>Enter</Text>
         </TouchableHighlight>
+
 
       </View>
 
@@ -66,6 +72,20 @@ export default class Cricket extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    padding: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: "#00a3e0"
+  },
+    topContainer: {
+    flex: 1,
+
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: "#00a3e0"
+  },
+  bottomContainer: {
     flex: 1,
     padding: 10,
     // justifyContent: 'center',
@@ -98,5 +118,9 @@ const styles = StyleSheet.create({
     fontFamily: "Georgia",
     color: '#ddd',
   // backgroundColor: "#ff4334"
-  }
+},
+toolbar: {
+  height: 56,
+  backgroundColor: '#e9eaed',
+}
 });

@@ -13,8 +13,11 @@ access the files in the folder.
 import Main from './Main';
 import Rugby from './Rugby';
 import Cricket from './Cricket';
-import VideoPlayer from './VideoPlayer';
+import Terminal from './Terminal';
 import CoreCamera from './CoreCamera';
+import VideoPlayer from './VideoPlayer';
+
+// console.error("TEST");
 
 // import BadInstagramCloneApp from './coreCamera'
 export default class Root extends Component {
@@ -46,6 +49,8 @@ export default class Root extends Component {
     switch (route.id) {
       case 'Cricket':
         return (<Cricket navigator={navigator} title="Cricket"/>)
+      case 'Terminal':
+        return (<Terminal navigator={navigator} title="Terminal"/>)
       case 'Main':
         return (<Main navigator={navigator} title="Main"/>)
       case 'Rugby':
@@ -58,79 +63,3 @@ export default class Root extends Component {
     }
   }
 }
-
-// <Cricket
-//   title={route.title}
-//
-// // Function to call when a new scene should be displayed
-//   onForward={ () => {
-//     const nextIndex = route.index + 1;
-//     navigator.push({
-//       title: 'Scene ' + nextIndex,
-//       index: nextIndex,
-//     });
-//   }}
-//   configureScene={(route, routeStack) =>
-//   Navigator.SceneConfigs.FloatFromBottom}
-//   // Function to call to go back to the previous scene
-//   onBack={() => {
-//     if (route.index > 0) {
-//       navigator.pop();
-//     }
-//   }}
-// />
-
-
-/* <Main/>
-/* <BadInstagramCloneApp /> */
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-
-//           <Navigator
-//             initialRoute={routes[0]}
-//             initialRouteStack={routes}
-//             renderScene={(route, navigator) =>
-//
-//               <TouchableHighlight onPress={() => {
-//                 if (route.index === 0) {
-//                   navigator.push(routes[1]);
-//                 } else {
-//                   navigator.pop();
-//                 }
-//               }}>
-//
-//               <Text>Hello {route.title}!</Text>
-//               </TouchableHighlight>
-//             }
-//             navigationBar={
-//    <Navigator.NavigationBar
-//      routeMapper={{
-//        LeftButton: (route, navigator, index, navState) =>
-//         { return (<Text>Cancel</Text>); },
-//        RightButton: (route, navigator, index, navState) =>
-//          { return (<Text>Done</Text>); },
-//        Title: (route, navigator, index, navState) =>
-//          { return (<Text>Awesome Nav Bar</Text>); },
-//      }}
-//      //style={{backgroundColor: 'gray'}}
-//    />
-// }  configureScene={(route, routeStack) =>
-//     Navigator.SceneConfigs.FloatFromBottom}
-//             style={{padding: 10, paddingTop: 100}}
-//           />
-
-//       <Navigator
-//    initialRoute={{ title: 'Awesome Scene', index: 0 }}
-//    renderScene={(route, navigator) =>
-//      <Main/>
-//    }
-//    style={{padding: 10}}
-//  />

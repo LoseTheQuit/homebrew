@@ -8,7 +8,7 @@ import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image} from 're
 import TimerMixin from 'react-timer-mixin';
 import clrs from '../utils/clrs';
 import { fetcher } from '../utils/fetcher';
-import VideoRecorder from 'react-native-video-recorder';
+
 var Button = require('react-native-button');
 
 // GOT IT WORKING
@@ -61,8 +61,7 @@ const GPS = React.createClass({
       let json = await response.json()
       //console.log('getData()')
       //console.log(json)
-      debugger;
-      return json
+       return json
     } catch (err) {
       console.log(null, err)
     }
@@ -207,7 +206,6 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
   },
 
   render() {
-    debugger;
 
     var circular_bg_pic = {
       uri:'https://flonoware.herokuapp.com/img/location.jpg'

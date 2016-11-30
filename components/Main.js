@@ -7,15 +7,15 @@ import {StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Ima
 var Slider = require('react-native-slider');
 var loDash = require('lodash');
 import clrs from '../utils/clrs'
-import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 import NavStuff from './NavStuff';
 import RestView from './RestView';
-import CardList from './CardList';
 import RestList from './RestList';
 
-import VideoRecorder from 'react-native-video-recorder';
+import GPS from './GPS';
+import CardList from './CardList';
+
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
 import CoreCamera from './CoreCamera';
@@ -65,7 +65,7 @@ export default class Main extends Component {
     }
 
     let underarmour_2 = {
-      uri: 'http://wallpap`erlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
+      uri: 'http://wallpaperlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
     }
 
     return (
