@@ -7,12 +7,19 @@ export default class RestList extends Component{
 
   constructor(props) {
     super(props);
-    this._buttonPress = this._buttonPress.bind(this);
+    // this._buttonPress = this._buttonPress.bind(this);
       this.state = {
       dataArr: [],
       loaded: false,
     }
   }
+
+    _buttonPress = (event) =>  {
+      console.log(Object.keys(event));
+       this.props.navigator.push({
+          id: 'VideoPlayer'
+        })
+    }
 
   genRows() {
     (async () => {
@@ -84,18 +91,6 @@ export default class RestList extends Component{
     )
   }
 
-  _buttonPress = () =>  {
-     this.props.navigator.push({
-        id: 'Cricket'
-      })
-  }
-  onPress = () => {
-     this.props.navigator.push({
-        id: 'Cricket'
-      })
-  };
-
-
   renderGPSDataFromServer =() => {
 
     return this.state.dataArr.map( (data, i) => {
@@ -114,9 +109,11 @@ export default class RestList extends Component{
           <View style={styles.cardContentRight}>
 
             <View style={styles.gpsDataContainer}>
-              <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
+
+            <Text style={styles.userID}>{data.userID}</Text>
+              {/* <Text style={styles.gpsData}>{Number(data.lat).toFixed(2)}</Text>
               <Text style={styles.gpsDataHandleBar}>|</Text>
-              <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text>
+              <Text style={styles.gpsData}>{Number(data.long).toFixed(2)}</Text> */}
             </View>
 
             <Text  style={styles.gpsData}>
@@ -194,6 +191,11 @@ const styles = StyleSheet.create({
    gpsData: {
      fontWeight: '300',
      fontSize: 24,
+     color: '#fff'
+   },
+   userID: {
+     fontWeight: '300',
+     fontSize: 18 ,
      color: '#fff'
    },
    gpsDataHandleBar: {

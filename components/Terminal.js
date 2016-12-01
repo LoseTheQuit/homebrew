@@ -10,6 +10,7 @@ import GPS from './GPS';
 import CardList from './CardList';
 import ToolBarMenu from './ToolBarMenu';
 import clrs from '../utils/clrs';
+import Video from 'react-native-video';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
@@ -26,7 +27,13 @@ export default class Terminal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolbarText: 'homebrew'
+      toolbarText: 'homebrew',
+      _handleWatchVideo: (event) => {
+        console.log(Object.keys(event));
+         this.props.navigator.push({
+          id: 'VideoPlayer'
+        })
+      }
     }
   }
   onActionSelected = (position) => {
@@ -36,7 +43,12 @@ export default class Terminal extends Component {
 
       this.props.navigator.push({
         // id: 'Main'
-        id: 'ToolBarMenu'
+        id: 'ToolBarMenu',
+        text:  1000,
+         passProps: {
+          //  max: this.state.maxDistance
+           test:  1000
+         }
       })
     }
     this.setState({
@@ -67,12 +79,9 @@ export default class Terminal extends Component {
               onActionSelected={this.onActionSelected} />
             </View>
               <GPS max={this.props.max}/>
-              <Text  style={styles.version}>
-              {this.state.max}
-              {this.props.max}
-               </Text>
+
               <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
-              <CardList navigator={this.props.navigator}></CardList>
+                <CardList navigator={this.props.navigator}></CardList>
               </ScrollView>
               </View>
         </Image>

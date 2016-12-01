@@ -2,10 +2,9 @@
 
 import React, { Component } from 'react';
 
-import { ScrollView, StyleSheet, View } from 'react-native';
+import {TouchableHighlight, Text, ScrollView, StyleSheet, View } from 'react-native';
 
 import Video from 'react-native-video';
-var Button = require('react-native-button');
 
 export default class VideoPlayer extends Component {
 
@@ -28,6 +27,7 @@ export default class VideoPlayer extends Component {
 
     return (
       <View style={styles.videoContainer}>
+
             <Video
       source={{
         uri: "http://flonoware.herokuapp.com/vid/small.mp4"
@@ -43,13 +43,13 @@ export default class VideoPlayer extends Component {
       onProgress={this.setTime} // Callback every ~250ms with currentTime
       onEnd={this.onEnd} // Callback when playback finishes
       onError={this.videoError} // Callback when video cannot be loaded
-      style={styles.backgroundVideo} />
-      
-               <Button
+      style={styles.backgroundVideo} >
+</Video>
+               <TouchableHighlight
       style={ styles.backButton}
       onPress={this.state._handleBackButton}>
-                 Back
-              </Button>
+<Text>Back</Text>
+</TouchableHighlight>
 
         </View>
     )
@@ -62,10 +62,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   backButton: {
-    flex: 2
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   backgroundVideo: {
-    flex: 8,
+    flex: 9,
   // position: 'absolute',
   // top: 0,
   // left: 0,

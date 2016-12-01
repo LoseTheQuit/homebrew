@@ -102,7 +102,7 @@ export default class CoreCamera extends Component {
     } else {
       this.camera.stopCapture()
       this.props.navigator.push({
-        id: 'Main'
+        id: 'Terminal'
       })
     }
   }

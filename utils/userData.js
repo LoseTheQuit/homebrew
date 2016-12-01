@@ -1,18 +1,16 @@
-export function get(url) {
-
-    return fetch(url)
-        .then((response) => response.json());
+let userData = {
+  foo: "bar"
 }
 
-export function searchFor(query) {
+export function getUserData() {
 
-    const requestURL = ('https://flonoware.herokuapp.com/{query}');
+  console.warn("THIS IS ON");
 
-    return get(requestURL)
-        .then((res) => {
-            const coords = res.coords ? res.coords.items : [];
-            return coords
-        });
+}
+export function setUserData() {
+
+  console.warn("THIS IS ON");
+
 }
 
 export function randomiZer() {
@@ -38,16 +36,5 @@ export function randomiZer() {
           }
       }
       return userID;
-
-}
-
-export function getUserData() {
-
-  console.warn("THIS IS ON");
-
-}
-export function setUserData() {
-
-  console.warn("THIS IS ON");
 
 }

@@ -7,7 +7,7 @@ import { ListView, StatusBar, StyleSheet, TextInput, View, Text, Image} from 're
 
 import TimerMixin from 'react-timer-mixin';
 import clrs from '../utils/clrs';
-import { fetcher } from '../utils/fetcher';
+import { randomiZer , getUserData, setUserData } from '../utils/userData';
 
 var Button = require('react-native-button');
 
@@ -41,7 +41,8 @@ const GPS = React.createClass({
         },
         body: JSON.stringify({
           lat: parseFloat(this.state.latitude),
-          long: parseFloat(this.state.longitude)
+          long: parseFloat(this.state.longitude),
+          userID: randomiZer()
         })
       })
 
@@ -144,6 +145,8 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
     //   title: 'Title',
     //   message: 'Message',
     // });
+    getUserData();
+    setUserData();
 
     this.setInterval(() => {
       this.getData().then((data) => {
@@ -172,7 +175,7 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
         console.error(error);
       });
       this.postData()
-    }, 60000);
+    }, 10000);
 
     // 1000 = second
     // 60000 = minute
