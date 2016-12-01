@@ -17,6 +17,7 @@ import Rugby from './Rugby';
 import Cricket from './Cricket';
 import Terminal from './Terminal';
 import CoreCamera from './CoreCamera';
+import ToolBarMenu from './ToolBarMenu';
 import VideoPlayer from './VideoPlayer';
 
 // console.error("TEST");
@@ -31,7 +32,8 @@ export default class Root extends Component {
       <Navigator
       initialRoute={{
         // title: 'homebrew',
-        id: 'Cricket',
+        // id: 'Cricket',
+        id: 'ToolBarMenu',
         index: 0
       }}
 
@@ -59,6 +61,8 @@ export default class Root extends Component {
         return (<Rugby navigator={navigator} title="Rugby"/>)
       case 'VideoPlayer':
         return (<VideoPlayer navigator={navigator} title="VideoPlayer"/>)
+      case 'ToolBarMenu':
+        return (<ToolBarMenu navigator={navigator} title="ToolBarMenu"/>)
       case 'CoreCamera':
         return (<CoreCamera navigator={navigator} title="CoreCamera"/>)
       default:

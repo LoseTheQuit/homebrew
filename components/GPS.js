@@ -140,10 +140,10 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
   mixins: [TimerMixin],
   componentDidMount: function() {
 
-    // PushNotification.localPushNotification({
-    //   title: 'Title',
-    //   message: 'Message',
-    // });
+    PushNotification.localPushNotification({
+      title: 'Title',
+      message: 'Message',
+    });
 
     this.setInterval(() => {
       this.getData().then((data) => {
@@ -172,7 +172,10 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
         console.error(error);
       });
       this.postData()
-    }, 1000);
+    }, 60000);
+
+    // 1000 = second
+    // 60000 = minute
 
     navigator.geolocation.getCurrentPosition((position) => {
 

@@ -4,15 +4,14 @@ import React, { Component, PropTypes } from 'react';
 
 import {StatusBar, StyleSheet, TextInput, View, ScrollView, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 // Navigator
-var ToolbarAndroid = require('ToolbarAndroid');
 
-import GPS from './GPS';
-import CardList from './CardList';
-import ToolBarMenu from './ToolBarMenu';
 import clrs from '../utils/clrs';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
+
+var ToolbarAndroid = require('ToolbarAndroid');
+var Slider = require('react-native-slider');
 
 var toolbarActions = [
 
@@ -22,55 +21,53 @@ var toolbarActions = [
    show: 'always'}
 ];
 
-export default class Terminal extends Component {
+export default class toolBarMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolbarText: 'homebrew'
+      toolbarText: 'Menu'
     }
   }
+
   onActionSelected = (position) => {
     if (position === 1) {
-      // index of 'Settings'
-      // showSettings();
-
       this.props.navigator.push({
-        // id: 'Main'
-        id: 'ToolBarMenu'
+         id: 'Terminal'
       })
     }
     this.setState({
       toolbarText: toolbarActions[position].title,
     });
   }
-  render() {
 
-    let underarmour_1 = {
-      uri: 'http://quietmike.org/wp-content/uploads/2016/07/BlackLivesMatter-1.jpg'
-    }
+  render() {
 
     let underArmour = {
       uri: 'http://wallpaperlayer.com/img/2015/1/blurred-city-lights-wallpaper-7607-7901-hd-wallpapers.jpg'
     }
 
-
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <Image source={underArmour} style={styles.backgroundImage}>
-            <View style={[styles.imageOverlay]}>
-            <View style={styles.topContainer}>
-              <ToolbarAndroid
-              title= {this.state.toolbarText}
-              style={styles.toolbar}
-              actions={toolbarActions}
-              onIconClicked={() => this.setState({toolbarText: 'Icon clicked'})}
-              onActionSelected={this.onActionSelected} />
-            </View>
-              <GPS max={10000}/>
-              <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
-                 <CardList navigator={this.props.navigator}></CardList>
-              </ScrollView>
-              </View>
+          <View style={[styles.imageOverlay]}>
+          <View style={styles.topContainer}>
+            <ToolbarAndroid
+            title= {this.state.toolbarText}
+            style={styles.toolbar}
+            actions={toolbarActions}
+            onIconClicked={() => this.setState({toolbarText: 'Icon clicked'})}
+            onActionSelected={this.onActionSelected} />
+          </View>
+          <Slider onValueChange={(value) => this.setState({
+           maxDistance: value
+         })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/>
+            <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
+            <Text>
+              Menu
+            </Text>
+            </ScrollView>
+
+          </View>
         </Image>
       </View>
     )
@@ -118,5 +115,8 @@ const styles = StyleSheet.create({
   toolbar: {
     height: 56,
     backgroundColor: '#e9eaed',
+  },
+  menuHeader: {
+    fontSize: 50
   }
 });
