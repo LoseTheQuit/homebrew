@@ -37,10 +37,10 @@ export default class Cricket extends Component {
     (() => {
       setTimeout(() => {
         this.props.navigator.push({
-           id: 'Main'
-          //  id: 'Terminal'
+          //  id: 'Main'
+           id: 'Terminal'
         })
-      }, 5000);
+      }, 1000);
     })();
   }
 
@@ -48,14 +48,8 @@ export default class Cricket extends Component {
 
     return (
        <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <ToolbarAndroid
-          title="Toolbar"
-          style={styles.toolbar} />
-        </View>
-        <View>
-
-        <Text style={styles.bottomContainer}>homebrew:
+        <View  style={styles.bottomContainer}>
+        <Text style={styles.leadText}>homebrew:
         </Text>
         <Text style={styles.largeText}>alpha v0.0.016</Text>
         <Text style={styles.infoText}></Text>
@@ -74,7 +68,7 @@ export default class Cricket extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 10,
+    flex: 1,
     padding: 10,
     // justifyContent: 'center',
     // alignItems: 'center',
@@ -105,8 +99,10 @@ const styles = StyleSheet.create({
   infoText: {
     flex: 2
   },
+   leadText: {
+color: '#fff'  },
   button: {
-    flex: 5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'stretch',

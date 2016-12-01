@@ -1,26 +1,16 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
-
-const ds = new ListView.DataSource({
-  rowHasChanged: (r1, r2) => r1 !== r2
-});
+import { Navigator, ListView, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
 
 export default class RestList extends Component{
 
   constructor(props) {
     super(props);
+    this._buttonPress = this._buttonPress.bind(this);
       this.state = {
-      dataSource: ds.cloneWithRows(['a', 'bb', 'ccc']),
       dataArr: [],
       loaded: false,
-       _buttonPress:   () => {
-         console.log("THIS IS ANOTHER TEST!")
-        // this.props.navigator.push({
-        //   id: 'Main'
-        // })
-      }
     }
   }
 
@@ -55,7 +45,7 @@ export default class RestList extends Component{
   }
 
   componentWillMount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    // navigator.geolocation.clearWatch(this.watchID);
     this.genRows();
   }
 
@@ -94,29 +84,31 @@ export default class RestList extends Component{
     )
   }
 
-  _buttonPress = (event) =>  {
-    console.log(" IS THIS IS ANOTHER TEST!????????")
-
-      // this.props.navigator.push({
-      //   id: 'Main'
-      // })
+  _buttonPress = () =>  {
+     this.props.navigator.push({
+        id: 'Cricket'
+      })
   }
+  onPress = () => {
+     this.props.navigator.push({
+        id: 'Cricket'
+      })
+  };
+
 
   renderGPSDataFromServer =() => {
 
-    const {loaded} = this.state;
-    const {state} = this.state;
-
     return this.state.dataArr.map( (data, i) => {
       return(
+
         <View style={[styles.cardContainer, styles.modularBorder, styles.basePadding]} key={i}>
 
           <View style={styles.cardContentLeft}>
             <TouchableHighlight style={styles.button}
-            onPress={this._buttonPress()}>
+          onPress={this._buttonPress.bind(this)}>
+            {/* onPress={this._buttonPress()}> */}
               <Text style={styles.restData}>View Video</Text>
             </TouchableHighlight>
-
           </View>
 
           <View style={styles.cardContentRight}>
@@ -136,7 +128,7 @@ export default class RestList extends Component{
         </View>
       );
     });
-  }
+ }
 
   render = ()=> {
     if (!this.state.loaded) {
@@ -144,8 +136,11 @@ export default class RestList extends Component{
     }
     return(
       <View>
-        {this.renderGPSDataFromServer()}
+        <View>
+          {this.renderGPSDataFromServer()}
+        </View>
       </View>
+
     )
   }};
 

@@ -24,7 +24,12 @@ export default class Terminal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolbarText: 'homebrew'
+      toolbarText: 'homebrew',
+      _buttonPress: () => {
+        this.props.navigator.push({
+          id: 'Cricket'
+        })
+      }
     }
   }
   onActionSelected = (position) => {
@@ -42,6 +47,14 @@ export default class Terminal extends Component {
      toolbarText: toolbarActions[position].title,
     });
   }
+
+  _buttonPress = () =>  {
+    console.log("PRESSED")
+    //  this.props.navigator.push({
+    //     id: 'Main'
+    //   })
+  }
+
   render() {
 
     let underarmour_1 = {
@@ -55,31 +68,65 @@ export default class Terminal extends Component {
 
     return (
       <View style={styles.container} >
-        <Image source={underarmour_2} style={styles.backgroundImage}>
-            <View style={[styles.imageOverlay]}>
+      <TouchableHighlight style={styles.button}
+    onPress={this._buttonPress.bind(this)}>
+      {/* onPress={this._buttonPress()}> */}
+        <Text style={styles.restData}>View Video</Text>
+      </TouchableHighlight>
+<Text>
+hello</Text>
             <View style={styles.topContainer}>
-              {/* <ToolbarAndroid
+              <ToolbarAndroid
               title= {this.state.toolbarText}
               style={styles.toolbar}
               actions={toolbarActions}
               onIconClicked={() => this.setState({toolbarText: 'Icon clicked'})}
 
-              onActionSelected={this.onActionSelected} /> */}
+              onActionSelected={this.onActionSelected} />
             </View>
-              <GPS max={10000}/>
-              <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
-                               {/* this is the one to use */}
-                               <CardList navigator={this.props.navigator}></CardList>
-                               {/* this is the one to use */}
-                            </ScrollView>
-             {/* <CardView></CardView> */}
-             </View>
-        </Image>
+
+      </View>
+    )
+  }
+}
+class App extends Component {
+  renderScene (route, navigator) {
+    return <route.component navigator={navigator} />
+  }
+  render() {
+    return (
+      <Navigator
+        style={styles.container}
+        renderScene={this.renderScene.bind(this)}
+        initialRoute={{component: SignIn}}
+      />
+    );
+  }
+}
+
+class SignIn extends Component {
+  _navigate () {
+    this.props.navigator.push({
+        component: Payments
+    })
+  }
+  render () {
+    return (
+      <View>
+        <Text>Hello from SignIn</Text>
+        <Button onPress={this._navigate.bind(this)} />
       </View>
     )
   }
 }
 
+class Payments extends Component {
+    render () {
+    return (
+      <Text>Hello from Payments</Text>
+    )
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 10,
@@ -114,9 +161,6 @@ const styles = StyleSheet.create({
   version: {
     fontWeight: '100',
     marginBottom: 50
-  },
-  ScrollViewStyle: {
-  //  padding: 10
   },
   toolbar: {
     height: 56,

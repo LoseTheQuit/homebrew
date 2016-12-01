@@ -7,14 +7,13 @@ import {StatusBar, StyleSheet, TextInput, View, ScrollView, Navigator, Text, Ima
 var Slider = require('react-native-slider');
 var loDash = require('lodash');
 import clrs from '../utils/clrs'
+import GPS from './GPS';
 import LatitudeSlider from './LatitudeSlider';
 import Rugby from './Rugby';
 import NavStuff from './NavStuff';
 import RestView from './RestView';
-import RestList from './RestList';
-
-import GPS from './GPS';
 import CardList from './CardList';
+import RestList from './RestList';
 
 import VideoPlayer from './VideoPlayer';
 import Video from 'react-native-video';
@@ -106,12 +105,13 @@ export default class Main extends Component {
                               <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar>
                             */ }
 
-                             <GPS max={this.state.maxDistance}/>
+                            <GPS max={this.state.maxDistance}/>
 
-                             {/* this is the one to use */}
-                             <CardList></CardList>
-                             {/* this is the one to use */}
-
+                            <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
+                               {/* this is the one to use */}
+                               <CardList></CardList>
+                               {/* this is the one to use */}
+                            </ScrollView>
                              {/* <RestView></RestView> */}
 
                              {/* <Slider onValueChange={(value) => this.setState({
@@ -119,13 +119,14 @@ export default class Main extends Component {
                             })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/> */}
 
 
-                           <View style={styles.mainNavContainer}>
+                           {/* <View style={styles.mainNavContainer}> */}
                                 {/* <TouchableHighlight style={styles.backButton} onPress={this.state._handleWatchVideo}>
                                     Watch
                                 </TouchableHighlight> */}
-                            </View>
+                            {/* </View> */}
 
                         </View>
+
                     </View>
                 </Image>
             </View>
@@ -141,11 +142,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#effffe'
   },
+  backgroundImage: {
+    flex: 10,
+    resizeMode: 'cover', // or 'stretch'
+    width: width,
+    height: height
+  },
+  imageOverlay: {
+    flex: 10,
+    backgroundColor: "rgba(0, 107, 148, .75)",
+  },
   basePadding: {
     padding: 10
   },
+  ScrollViewStyle: {
+    padding: 10
+  },
   contentContainer: {
-    flex: 2,
+    flex: 8,
     justifyContent: 'flex-start',
   // alignItems: 'flex-start',
   // flexDirection: 'column',
@@ -155,16 +169,8 @@ const styles = StyleSheet.create({
   buttonText: {
   fontFamily: 'Roboto'
   },
-  backgroundImage: {
-    flex: 28,
-    resizeMode: 'cover', // or 'stretch'
-    width: width,
-    height: height
-  },
-  imageOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 107, 148, .75)",
-  },
+
+
   mainNavContainer: {
     flex: 2,
     flexDirection: "row",

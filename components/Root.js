@@ -4,7 +4,9 @@ import { Navigator, Text, TouchableHighlight, View } from 'react-native';
 /*
 
 This file and the Main.JS file  are
-on the same level. Therefore ./ is good
+on the same level.
+
+./ is good
 is used to traverse the same level and
 access the files in the folder.
 
