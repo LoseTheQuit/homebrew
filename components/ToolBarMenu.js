@@ -25,14 +25,21 @@ export default class toolBarMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolbarText: 'Menu'
+      toolbarText: 'Menu',
+      maxDistance: 0
     }
   }
 
   onActionSelected = (position) => {
     if (position === 1) {
       this.props.navigator.push({
-         id: 'Terminal'
+         id: 'Terminal',
+        //  max: this.state.maxDistance,
+        max:  1000,
+         passProps: {
+          //  max: this.state.maxDistance
+           max:  1000
+         }
       })
     }
     this.setState({
@@ -63,7 +70,13 @@ export default class toolBarMenu extends Component {
          })} minimumTrackTintColor={'#2ea8ff'} maximumrackTintColor={'#005694'} thumbTintColor={'#0083e0'} step={.1} minimumValue={0} maximumValue={10000}/>
             <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
             <Text>
-              Menu
+               {this.state.maxDistance}
+            </Text>
+            <Text>
+               {this.state.test}
+            </Text>
+            <Text>
+               {this.props.test}
             </Text>
             </ScrollView>
 

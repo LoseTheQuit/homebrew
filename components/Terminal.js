@@ -66,9 +66,13 @@ export default class Terminal extends Component {
               onIconClicked={() => this.setState({toolbarText: 'Icon clicked'})}
               onActionSelected={this.onActionSelected} />
             </View>
-              <GPS max={10000}/>
+              <GPS max={this.props.max}/>
+              <Text  style={styles.version}>
+              {this.state.max}
+              {this.props.max}
+               </Text>
               <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
-                 <CardList navigator={this.props.navigator}></CardList>
+              <CardList navigator={this.props.navigator}></CardList>
               </ScrollView>
               </View>
         </Image>
@@ -110,7 +114,8 @@ const styles = StyleSheet.create({
   } ,
   version: {
     fontWeight: '100',
-    marginBottom: 50
+    marginBottom: 10,
+    fontSize: 34
   },
   ScrollViewStyle: {
   //  padding: 10

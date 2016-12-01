@@ -105,7 +105,7 @@ export default class Main extends Component {
                               <StatusBar barStyle="light-content" backgroundColor="#444" showHideTransition='fade'></StatusBar>
                             */ }
 
-                            <GPS max={this.state.maxDistance}/>
+                            <GPS max={this.state.maxDistance} />
 
                             <ScrollView contentcontainerstyle={styles.ScrollViewStyle}>
                                {/* this is the one to use */}

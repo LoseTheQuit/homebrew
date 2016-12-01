@@ -33,8 +33,17 @@ export default class Root extends Component {
       initialRoute={{
         // title: 'homebrew',
         // id: 'Cricket',
-        id: 'ToolBarMenu',
-        index: 0
+        // id: 'ToolBarMenu',
+        id: 'Terminal',
+       //  max: this.state.maxDistance,
+       max:  1000,
+        passProps: {
+         //  max: this.state.maxDistance
+          max:  1000
+        },
+        index: 0,
+
+
       }}
 
       configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}

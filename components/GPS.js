@@ -85,7 +85,7 @@ const GPS = React.createClass({
       incomingLongitudeREST: '182',
       totalDistance: 'unknown',
       dataFromServer: '',
-      max: '1000',
+      // max: '1000',
       maxDistanceChecker: () => {
 
         if (this.props.max) {
@@ -140,10 +140,10 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
   mixins: [TimerMixin],
   componentDidMount: function() {
 
-    PushNotification.localPushNotification({
-      title: 'Title',
-      message: 'Message',
-    });
+    // PushNotification.localPushNotification({
+    //   title: 'Title',
+    //   message: 'Message',
+    // });
 
     this.setInterval(() => {
       this.getData().then((data) => {
@@ -261,6 +261,8 @@ RETURNS THE DISTANCE BETWEEN THE TWO POINTS
                   <Text style={styles.title}>longitude</Text>
                     <Text style={styles.invincibleHandleBar}></Text>
                   <Text style={styles.title}>latitude</Text>
+                  <Text style={styles.title}>{this.props.max}</Text>
+                  <Text style={styles.title}>{this.state.max}</Text>
 
                   </View>
                   {/* <Text style={styles.title}>Current latitude: </Text> */}
